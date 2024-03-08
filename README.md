@@ -1,4 +1,4 @@
-# Project-Meal_Kit-SpringBoot-
+# Project-Meal_Kit-SpringBoot로 수정
 밀키트 프로젝트(JSP → SpringBoot)
 
 <commit message>
