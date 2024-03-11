@@ -1,9 +1,9 @@
 package org.mealkitspringboot.config;
 
-import java.sql.DriverManager;		// 1. DB 관리
-import java.sql.Connection;			// 2. DB 연결
-import java.sql.PreparedStatement;	// 3. DB 쿼리문 사용
-import java.sql.ResultSet;			// 4. DB 쿼리문 수행 결과
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 //DB관리(1.DB 연결 / 2.DB 닫기)
 public class DBManager {
