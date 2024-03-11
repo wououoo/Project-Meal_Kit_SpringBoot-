@@ -1,5 +1,4 @@
-<!-- java 연결 -->
-<%@ page import = "dao.*" %>
+<% request.setCharacterEncoding("UTF-8"); %>
 
 <%
 	// Bom_list.jsp에서 넘어온 값들

@@ -1,3 +1,16 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@page import="java.util.stream.Collectors"%>
+<%@page import="java.security.interfaces.RSAKey"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@ page import="java.util.*" %>
+<!-- DB와 연결 -->
+<%@ page import = "java.sql.DriverManager" %>
+<%@ page import = "java.sql.Connection" %>
+<%@ page import = "java.sql.Statement" %>
+<%@ page import = "java.sql.ResultSet" %>
+<%@ page import = "java.lang.Exception, java.sql.SQLException" %>
+
 
 <% 
 	//BOM_list.jsp에서 넘어온 값들
@@ -62,3 +75,4 @@
 <% 
 	}
 %>
+

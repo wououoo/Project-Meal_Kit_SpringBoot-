@@ -1,3 +1,19 @@
+<%@page import="java.util.stream.Collectors"%>
+<%@page import="java.security.interfaces.RSAKey"%>
+<%@page import="java.sql.PreparedStatement"%>
+<% request.setCharacterEncoding("UTF-8"); %>
+<%@ page import="java.util.*" %>
+<!-- DB와 연결 -->
+<%@ page import = "java.sql.DriverManager" %>
+<%@ page import = "java.sql.Connection" %>
+<%@ page import = "java.sql.Statement" %>
+<%@ page import = "java.sql.ResultSet" %>
+<%@ page import = "java.lang.Exception, java.sql.SQLException" %>
+<!-- 부트스트랩 연결 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<!-- reset.css 연결 -->
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css">
 <!-- newBom.css 연결 -->
 <link rel="stylesheet" href="./css/newBom.css" />
 

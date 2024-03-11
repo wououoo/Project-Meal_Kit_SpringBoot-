@@ -1,13 +1,57 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="java.util.*" %>
+<%@page import="java.util.stream.Collectors"%>
+<%@page import="java.security.interfaces.RSAKey"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="org.mealkitspringboot.mapper.*"%>
+<%@page import="org.mealkitspringboot.config.*"%>
+<%@page import="org.mealkitspringboot.domain.*"%>
+<!-- DB와 연결 -->
+<%@ page import = "java.sql.DriverManager" %>
+<%@ page import = "java.sql.Connection" %>
+<%@ page import = "java.sql.Statement" %>
+<%@ page import = "java.sql.ResultSet" %>
+<%@ page import = "java.lang.Exception, java.sql.SQLException" %>
 
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>밀키트 관리 시스템</title>
+	<!-- 부트스트랩 연결 -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+	<!-- reset.css 연결 -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css">
+	<!-- main.css 연결 -->
+	<link rel="stylesheet" href="./css/main.css" />
+	<!-- google font & google material icon -->
+  <!-- Google 나눔고딕 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+
+	<!-- Google material 아이콘 -->
+	<!-- 아이콘을 이미지가 아닌, 폰트처럼 사용 가능함 -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+	<!-- jQuery 연결 -->
+	<script defer src="./js/jquery-3.7.1.min.js"></script>
+	
 	<!-- bomList.css 연결 -->
 	<link rel="stylesheet" href="./css/bomList.css" />
 
 	<!-- jQuery 연결 -->
 	<script defer src="./js/readBom.js"></script>
-
+	
+</head>
+<body>	
 
 	<!-- header 공통 부분 연결 -->
-	<%@ include file="header.jsp" %>
+	<%@ include file="../includes/header.jsp" %>
 	
 	<!-- ============================================================================== -->
 	<!-- BOM 현황 -->
@@ -36,30 +80,31 @@
 						<form action="" method="get" class="searchBom" name="searchBom" id="searchBom">
 							<div class="search_body prodNm_search">
 								<h3>제품명</h3>
-									<select class="form-select" aria-label="Default select example" name="search-ProdNm" id="search-ProdNm">
+									<select class="form-select searchProdNm" name="search-ProdNm" id="search-ProdNm" aria-label="Default select example"
+											value='<c:out value="${searchProdNm}" />'>
 										<option value="">제품명 선택</option>
 <% 
 	//완제품 객체 생성
-	Prod_select prod_s = new Prod_select();
+	/* Prod_select prod_s = new Prod_select();
 	List<String> prod_divs = prod_s.getProd_div();
 	List<String> prod_nms = prod_s.getProd_nm();
 	String categoryProdNm = request.getParameter("search-ProdNm");
 
-	for(String prod_nm : prod_nms) {
+	for(String prod_nm : prod_nms) { */
 %>
-									<option value="<%= prod_nm %>"
+									<option value='<c:out value="${searchProdNm}" />'
 										<%-- <%= prod_nm == null ? "selected" : (prod_nm.equals(categoryProdNm) ? "selected" : "") %>> --%>
 										<%= prod_nm.equals(categoryProdNm) ? "selected" : "" %>>
 											<%= prod_nm %>
 <%
-	}
+	/* } */
 %>
 									</option>
 								</select>
 							</div>
 							<div class="search_body prodSpec_search">
 								<h3>제품종류</h3>
-									<select class="form-select" aria-label="Default select example" name="search-prodDiv" id="search-prodDiv">
+									<select class="form-select searchProdDiv" aria-label="Default select example" name="search-prodDiv" id="search-prodDiv">
 										<option value="">제품종류 선택</option>
 <%
 	String categoryProdDiv = request.getParameter("search-prodDiv");
@@ -77,7 +122,7 @@
 							</div>
 							<div class="search_body matNm_search">
 								<h3>재료명</h3>
-									<select class="form-select" aria-label="Default select example" name="search-matNm" id="search-matNm">
+									<select class="form-select searchMatNm" aria-label="Default select example" name="search-matNm" id="search-matNm">
 									  <option value="">재료명 선택</option>
 <%
 	// 자재(재료) 객체 생성
@@ -210,4 +255,4 @@
 	
 	<!-- ============================================================================== -->
 	<!-- footer 공통 부분 연결 -->
-	<%@ include file="footer.jsp" %>
+	<%@ include file="../includes/footer.jsp" %>
