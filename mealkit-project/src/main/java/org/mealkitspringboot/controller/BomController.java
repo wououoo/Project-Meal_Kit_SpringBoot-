@@ -1,13 +1,16 @@
 package org.mealkitspringboot.controller;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.log4j.Log4j;
 import org.mealkitspringboot.domain.BomListVo;
+import org.mealkitspringboot.domain.CriteriaVo;
 import org.mealkitspringboot.service.BomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,20 +20,13 @@ public class BomController {
     @Autowired
     private BomService bomService;
 
-    /* BOM 현황 조회 */
+    /* BOM 현황 조회(검색) */
     // http://localhost:8008/bomList
-    @GetMapping("/bomList")
-    public List<BomListVo> bomList(
-            @RequestParam(value = "searchProdNm" required="false") String searchProdNm,
-            @RequestParam(value = "searchProdDiv" required="false") String searchProdDiv,
-            @RequestParam(value = "searchMatNm" required="false") String searchMatNm,
-            Model model
-    ) {
-        List<BomListVo> bomListVoList = bomService.getBomList(searchProdNm, searchProdDiv, searchMatNm);
+    @GetMapping("/getBomList")
+    public void bomList(CriteriaVo cri, Model model) {
+        log.info("getBomList");
 
-        model.addAttribute("bomListVoList", bomListVoList);
-        model.addAttribute("searchProdNm", searchProdNm);
-        model.addAttribute("searchProdDiv", searchProdDiv);
-        model.addAttribute("searchMatNm", searchMatNm);
+        List<BomListVo> bomVoList = bomService.getBomList(cri);
+        model.addAttribute("bomList", bomVoList);
     }
 }
