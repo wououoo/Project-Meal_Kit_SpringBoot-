@@ -15,30 +15,50 @@ public class BomServiceImpl implements BomService {
     @Autowired
     private BomMapper bomMapper;
 
-    /* 제품명 옵션 검색 서비스 */
+    /* BOM 등록 서비스 */
     @Override
-    public List<BomListVo> getProdNmOption(String searchProdNm) {
-        List<BomListVo> searchList = bomMapper.getProdNmOption(searchProdNm);
-        return searchList;
+    public int register(BomListVo bomListVo) {
+        log.info("register......" + bomListVo);
+        return bomMapper.insert(bomListVo);
     }
 
-    /* 제품 규격 옵션 검색 */
+    /* BOM 현황 조회 서비스 */
     @Override
-    public List<BomListVo> getProdDivOption(String searchProdDiv) {
-        List<BomListVo> searchList = bomMapper.getProdNmOption(searchProdDiv);
-        return searchList;
+    public BomListVo get() {
+        log.info("get........");
+        return bomMapper.read();
     }
 
-    /* 제품명 옵션 검색 */
-    public List<BomListVo> getMatNmOption(String searchMatNm) {
-        List<BomListVo> searchList = bomMapper.getProdNmOption(searchMatNm);
-        return searchList;
+    /* BOM 현황 조회(검색 기능) 서비스 */
+    @Override
+    public List<BomListVo> get(CriteriaVo cri) {
+        log.info("get BOM 현황 조회.......");
+
+        List<BomListVo> listWithSearch = bomMapper.getListWithSearch(cri);
+        return listWithSearch;
     }
 
-    /* BOM 현황 조회(검색) 서비스 */
+    /* BOM 수정 서비스 */
     @Override
-    public List<BomListVo> getBomList(CriteriaVo cri) {
-        log.info("getBomList.......");
-        return bomMapper.getBomList(cri);
+    public int modify(BomListVo bomListVo) {
+        log.info("modify......" + bomListVo);
+        return bomMapper.update(bomListVo);
+    }
+
+    /* BOM 삭제 서비스 */
+    @Override
+    public int remove(Long listSeq) {
+        log.info("remove......" + listSeq);
+        return bomMapper.delete(listSeq);
+    }
+
+    /* BOM 목록 전체 개수 조회 서비스(무한 스크롤에 사용) */
+    @Override
+    public int getTotalCount(Long listSeq) {
+        return bomMapper.getCountByListSeq(listSeq);
+    }
+    @Override
+    public int getCurrVal() {
+        return bomMapper.readCurrval();
     }
 }

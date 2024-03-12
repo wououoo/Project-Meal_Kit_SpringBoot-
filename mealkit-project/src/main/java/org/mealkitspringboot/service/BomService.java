@@ -1,20 +1,18 @@
 package org.mealkitspringboot.service;
 
+import org.apache.ibatis.annotations.Param;
 import org.mealkitspringboot.domain.BomListVo;
 import org.mealkitspringboot.domain.CriteriaVo;
 
 import java.util.List;
 
 public interface BomService {
-    /* 제품명 옵션 검색 */
-    List<BomListVo> getProdNmOption(String searchProdNm);
+    int register(BomListVo bomListVo);          // BOM 작성
+    int getCurrval();
+    BomListVo get();                            // BOM 현황 조회
+    int modify(BomListVo bomListVo);            // BOM 수정
+    int remove(Long listSeq);                   // BOM 삭제
+    int getTotalCount(Long listSeq);            // BOM 전체 개수 조회(무한 스크롤에 사용)
+    List<BomListVo> get(CriteriaVo cri); // BOM 현황 조회(검색)
 
-    /* 제품 규격 옵션 검색 */
-    List<BomListVo> getProdDivOption(String searchProdDiv);
-
-    /* 제품명 옵션 검색 */
-    List<BomListVo> getMatNmOption(String searchMatNm);
-
-    /* BOM 현황 조회 및 검색 */
-    List<BomListVo> getBomList(CriteriaVo cri);
 }

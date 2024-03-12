@@ -6,28 +6,22 @@ import lombok.Setter;
 @Getter
 @Setter
 public class BomListVo {
-	private String listSeq;
-	private String bomId;
-	private String prodId;
+	private Long listSeq;
+	private Long bomId;
+	private Long prodId;
 	private String prodNm;
 	private String prodDiv;
 	private String prodSpec;
-	private String prodPrice;
-	private String lotId;
-	private String lotSize;
+	private Long prodPrice;
+	private Long lotId;
+	private Long lotSize;
 	private String matDiv;
-	private String matId;
+	private Long matId;
 	private String matNm;
 	private String quantityUnits;
-	private String bomProdQuantity;
+	private Long bomProdQuantity;
 
-	/* BOM 검색 옵션 */
-	public BomListVo(String prodNm, String prodDiv, String matNm) {
-		this.prodNm = prodNm;
-		this.prodDiv = prodDiv;
-		this.matNm = matNm;
-	}
+
 
 	/* BOM 옵션으로 검색 */
-
 }
