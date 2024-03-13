@@ -72,7 +72,7 @@
 						<form action="" method="get" class="searchBom" name="searchBom" id="searchBom">
 							<div class="search_body prodNm_search">
 								<h3>제품명</h3>
-								<select class="form-select" name=searchProdNm id="searchProdNm" aria-label="Default select example">
+								<select class="form-select" name="searchProdNm" id="searchProdNm" aria-label="Default select example" onchange="setSelectBox(this)">
 									<option value="">제품명 선택</option>
 									<c:forEach items="${prodNmResult}" var="prodNmList">
 										<option value="${prodNmList.prodNm}" >

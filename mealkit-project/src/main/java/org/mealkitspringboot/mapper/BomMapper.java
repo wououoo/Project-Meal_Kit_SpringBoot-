@@ -7,6 +7,7 @@ import org.mealkitspringboot.domain.CriteriaVo;
 import java.util.List;
 
 public interface BomMapper {
+    List<BomListVo> getProdNmList(String prodNm);        // select option 제품명
     int insert(BomListVo bomListVo);        // BOM 등록
     BomListVo read();                       // BOM 현황 조회
     int readCurrval();                      // 무한 스크롤(스크롤 위치 조회)
