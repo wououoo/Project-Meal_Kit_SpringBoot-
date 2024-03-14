@@ -1,9 +1,8 @@
-<% request.setCharacterEncoding("UTF-8"); %>
-	<header>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 		<div class="inner">
 			<!-- 로고 이미지 -->
 			<a href="./index.jsp" class="logo">
-				<img src="./css/images/logo.png" alt="starbucks_logo">
+				<img src="/resources/css/images/logo.png" alt="starbucks_logo">
 			</a>
 			
 			<!-- 위에 있는 서브 메뉴 부분 -->
@@ -11,11 +10,11 @@
 				<ul class="menu">
 					<li>
 						<!-- 마이페이지 링크 연결할 것 -->
-						<a href="./myPage.jsp">My Page</a>	
+						<a href="../users/myPage.jsp">My Page</a>
 					</li>
 					<li>
 						<!-- 로그아웃 링크 연결할 것 -->
-						<a href="./logout.jsp">Log Out</a>
+						<a href="../users/logout.jsp">Log Out</a>
 					</li>
 				</ul>
 			</div>
@@ -156,4 +155,3 @@
         <% } %> 
 			</ul>
 		</div>
-  </header>

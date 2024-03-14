@@ -1,13 +1,18 @@
 package org.mealkitspringboot.service;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.log4j.Log4j;
 import org.mealkitspringboot.domain.BomListVo;
 import org.mealkitspringboot.domain.CriteriaVo;
 import org.mealkitspringboot.mapper.BomMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Log4j
 @Service
@@ -15,27 +20,53 @@ public class BomServiceImpl implements BomService {
     @Autowired
     private BomMapper bomMapper;
 
-    /* BOM 등록 서비스 */
+    /* select option 제품명 */
     @Override
-    public int register(BomListVo bomListVo) {
-        log.info("register......" + bomListVo);
-        return bomMapper.insert(bomListVo);
+    public List<BomListVo> getProdNmList() {
+        log.info("getProdNmList....." );
+        return bomMapper.getProdNmList();
     }
 
-    /* BOM 현황 조회 서비스 */
+    /* select option 제품규격 */
     @Override
-    public BomListVo get() {
-        log.info("get........");
-        return bomMapper.read();
+    public List<BomListVo> getProdDivList() {
+        log.info("getProdDivList.....");
+        return bomMapper.getProdNmList();
+    }
+
+    /* select option 재료명 */
+    @Override
+    public List<BomListVo> getMatNmList() {
+        log.info("getProdNmList.....");
+        return bomMapper.getProdNmList();
     }
 
     /* BOM 현황 조회(검색 기능) 서비스 */
     @Override
-    public List<BomListVo> get(CriteriaVo cri) {
-        log.info("get BOM 현황 조회.......");
+    public List<BomListVo> getList(CriteriaVo cri) {
+        log.info("getList.........");
 
-        List<BomListVo> listWithSearch = bomMapper.getListWithSearch(cri);
-        return listWithSearch;
+        return bomMapper.getList(cri);
+    }
+
+    /* BOM 등록 서비스 */
+    @Override
+    @Transactional
+    public int register(BomListVo bomListVo) {
+        log.info("register......" + bomListVo);
+
+        // 1. 제품정보 처리
+        // if product id 있으면 skip 없으면 insert 처리
+        //bomMapper.insert(bomListVo)
+
+        // 2. 재료정보 처리
+        // if material id 있으면 skip 없으면 insert 처리
+        // bomMapper.insert(bomListVo)
+
+        // 3.
+        // bomMapper.insert(bomListVo)
+
+        return bomMapper.insert(bomListVo);
     }
 
     /* BOM 수정 서비스 */
@@ -57,8 +88,8 @@ public class BomServiceImpl implements BomService {
     public int getTotalCount(Long listSeq) {
         return bomMapper.getCountByListSeq(listSeq);
     }
-    @Override
+    /*@Override
     public int getCurrVal() {
         return bomMapper.readCurrval();
-    }
+    }*/
 }

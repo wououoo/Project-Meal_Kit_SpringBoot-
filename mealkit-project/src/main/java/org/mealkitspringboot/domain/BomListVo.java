@@ -6,20 +6,20 @@ import lombok.Setter;
 @Getter
 @Setter
 public class BomListVo {
-	private Long listSeq;
-	private Long bomId;
-	private Long prodId;
+	private int listSeq;
+	private int bomId;
+	private int prodId;
 	private String prodNm;
 	private String prodDiv;
 	private String prodSpec;
-	private Long prodPrice;
-	private Long lotId;
-	private Long lotSize;
+	private int prodPrice;
+	private int lotId;
+	private int lotSize;
 	private String matDiv;
-	private Long matId;
+	private int matId;
 	private String matNm;
 	private String quantityUnits;
-	private Long bomProdQuantity;
+	private int bomProdQuantity;
 
 
 

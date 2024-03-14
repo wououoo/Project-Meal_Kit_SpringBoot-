@@ -1,3 +1,8 @@
+ALTER TABLE bom ADD FOREIGN KEY(product_id) REFERENCES FINISHED_PRODUCT(product_id);
+ALTER TABLE bom ADD FOREIGN KEY(material_id) REFERENCES material(material_id);
+ALTER TABLE bom ADD FOREIGN KEY(lot_id) REFERENCES instruction(lot_id);
+
+
 /* BOM 목록 수정 */
 -- 해당 코드는 작동하지 않음.
 UPDATE FINISHED_PRODUCT fp, MATERIAL m, INSTRUCTION i, BOM b

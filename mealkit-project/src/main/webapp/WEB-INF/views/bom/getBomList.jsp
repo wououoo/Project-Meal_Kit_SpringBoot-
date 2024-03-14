@@ -2,9 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page import="java.util.*" %>
-<%@page import="org.mealkitspringboot.mapper.*"%>
-<%@page import="org.mealkitspringboot.config.*"%>
-<%@page import="org.mealkitspringboot.domain.*"%>
+<%@ page import="org.mealkitspringboot.mapper.*"%>
+<%@ page import="org.mealkitspringboot.config.*"%>
+<%@ page import="org.mealkitspringboot.domain.*"%>
 
 
 <!DOCTYPE html>
@@ -18,7 +18,7 @@
 	<!-- reset.css 연결 -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css">
 	<!-- main.css 연결 -->
-	<link rel="stylesheet" href="./css/main.css" />
+	<link rel="stylesheet" href="/resources/css/main.css" />
 	<!-- google font & google material icon -->
   <!-- Google 나눔고딕 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,14 +30,14 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 	<!-- jQuery 연결 -->
-	<script defer src="./js/jquery-3.7.1.min.js"></script>
+	<script defer src="/resources/js/jquery-3.7.1.min.js"></script>
 	
 	<!-- bomList.css 연결 -->
-	<link rel="stylesheet" href="./css/bomList.css" />
+	<link href="/resources/css/bomList.css" rel="stylesheet">
 
 	<!-- jQuery 연결 -->
 	<script defer src="/resources/js/readBom.js"></script>
-	
+
 </head>
 <body>	
 
@@ -63,7 +63,7 @@
 							<span class="material-symbols-outlined">
 								<!-- ★★★ # 에 검색 메소드 연결할 것 -->
 								<!-- <a href="javascript:submitReadBomForm();">Search</a> -->
-								<a href="javascript:submitReadBomForm();">Search</a>
+								<a href="#">Search</a>
 							</span>
 						</div>
 					</div>
@@ -72,36 +72,36 @@
 						<form action="" method="get" class="searchBom" name="searchBom" id="searchBom">
 							<div class="search_body prodNm_search">
 								<h3>제품명</h3>
-								<select class="form-select" name="searchProdNm" id="searchProdNm" aria-label="Default select example" onchange="setSelectBox(this)">
+								<select class="form-select" name="prodNm" id="prodNm" aria-label="Default select example">
 									<option value="">제품명 선택</option>
-									<c:forEach items="${prodNmResult}" var="prodNmList">
-										<option value="${prodNmList.prodNm}" >
-											<c:if test ="${user.selectedprodNm eq prodNmList.prodNm}">selected="selected"</c:if>>
-											${prodNmList.prodNm}
+									<c:forEach items="${prodNmList}" var="prodNms">
+										<option value="<c:out value='${prodNms.prodNm}' />" >
+											<%-- <c:if test ="${user.selectedprodNm eq prodNmList.prodNm}">selected="selected"</c:if> --%>
+											<c:out value='${prodNms.prodNm}' />
 										</option>
 									</c:forEach>
 								</select>
 							</div>
 							<div class="search_body prodSpec_search">
 								<h3>제품종류</h3>
-									<select class="form-select" name="searchProdDiv" id="searchProdDiv" aria-label="Default select example" >
+									<select class="form-select" name="prodDiv" id="prodDiv" aria-label="Default select example" >
 										<option value="">제품종류 선택</option>
-									  <c:forEach items="${prodDivResult}" var="prodDivList">
-											<option value="${prodDivList.prodDiv}" >
-												<c:if test ="${user.selectedprodDiv eq prodDivList.prodDiv}">selected="selected"</c:if>>
-												${prodDivList.prodDiv}
+									  <c:forEach items="${prodDivList}" var="prodDivs">
+											<option value="<c:out value='${prodDivs.prodDiv}' />" >
+												<%-- <c:if test ="${user.selectedprodDiv eq prodDivList.prodDiv}">selected="selected"</c:if>> --%>
+												<c:out value='${prodDivs.prodDiv}' />
 											</option>
 										</c:forEach>
 									</select>
 							</div>
 							<div class="search_body matNm_search">
 								<h3>재료명</h3>
-									<select class="form-select" name="searchMatNm" id="searchMatNm" aria-label="Default select example">
+									<select class="form-select" name="matNm" id="matNm" aria-label="Default select example">
 									  <option value="">재료명 선택</option>
-										<c:forEach items="${matNmResult}" var="matNmList">
-											<option value="${matNmList.matNmResult}" >
-												<c:if test ="${user.selectedMatNm eq matNmList.matNmResult}">selected="selected"</c:if>>
-												${matNmList.matNmResult}
+										<c:forEach items="${matNmList}" var="matNms">
+											<option value="<c:out value='${matNms.matNm}' />" >
+												<%-- <c:if test ="${user.selectedMatNm eq matNmList.matNmResult}">selected="selected"</c:if>> --%>
+												<c:out value='${matNms.matNm}' />
 											</option>
 										</c:forEach>
 									</select>
@@ -116,7 +116,9 @@
 				<div class="inner list_container">
 	    		<div class="inner BOM_list">
 	        	<div class="BOM_list bom_delete">
-	            <a href="javascript: submitDeleteRow();">
+	        		<!-- checkBox 누른 것을 삭제하는 함수 연결할 것 -->
+	            <!-- <a href="javascript: submitDeleteRow();"> -->
+	            <a href="#">
 	        	    <button type="button" class="btn btn-secondary btn-sm btn-delete">삭제</button>
 	            </a>
 	       		</div>
@@ -126,7 +128,9 @@
 						    <tr>
 						    	<th>
 						    		<div class="form-check">
-										  <input class="form-check-input" type="checkbox" value="" id="checkAll" onclick="javascript: checkBox();">
+						    			<!-- checkAll 누르면 전체 checkBox 선택/해제 적용하는 함수 연결할 것 -->
+										  <!-- <input class="form-check-input" type="checkbox" value="" id="checkAll" onclick="javascript: checkBox();"> -->
+										  <input class="form-check-input" type="checkbox" value="" id="checkAll" onclick="#">
 										  <label class="form-check-label" for="checkAll"></label>
 										</div>
 						    	</th>
@@ -146,92 +150,48 @@
 						    </tr>
 						  </thead>
 						  <tbody id="tBody">
-	<%
-	//BOM 현황 객체 생성
-/* 	BomDao bDao = new BomDao();
-	List<BomListVo> lists = bDao.readBomList(request);
-		for(BomListVo list : lists) { */
-	%>
-								<c:forEach items="${bomList}" var="bomList">
-						  	<%-- <tr data-row-id="<%= /* list.getList_seq() */ %>"> --%>
-						  	<tr data-row-id="${bomList.listSeq}">
-						    	<th>
-						    		<div class="form-check">
-						    			<!-- delete 쿼리문에 필요한 값인 bomId, matId를 넘겨야 함 => value 값에 넣기 -->
-										  <%-- <input class="form-check-input chk" type="checkbox" value="<%= /* list.getBom_id() */ %>,<%=/* list.getMaterial_id() */ %>" id="flexCheckDefault" name="deleteCheckBox"> --%>
-										  <input class="form-check-input chk" type="checkbox" value="${bomList.bomId}, ${bomList.matId}" id="flexCheckDefault" name="deleteCheckBox">
-										  <label class="form-check-label" for="flexCheckDefault"></label>
-										</div>
-						    	</th>
-						    	<%-- <th><%= list.getList_seq() %></th>
-						    	<th><%= list.getBom_id() %></th>
-						    	<th><%= list.getProduct_id() %></th>
-						    	<th><%= list.getProduct_nm() %></th>
-						    	<th><%= list.getProduct_div() %></th>
-						    	<th><%= list.getProduct_spec() %></th>
-						    	<th><%= list.getLot_size() %></th>
-						    	<th><%= list.getMaterial_classification() %></th>
-						    	<th><%= list.getMaterial_id() %></th>
-						    	<th><%= list.getMaterial_nm() %></th>
-						    	<th><%= list.getQuantity_units() %></th>
-						    	<th><%= list.getBom_prod_quantity() %></th> --%>
-						    	<th>${bomList.listSeq}</th>
-						    	<th>${bomList.bomId}</th>
-						    	<th>${bomList.prodId}</th>
-						    	<th>${bomList.prodNm}</th>
-						    	<th>${bomList.prodDiv}</th>
-						    	<th>${bomList.prodSpec}</th>
-						    	<th>${bomList.lotSize}</th>
-						    	<th>${bomList.matDiv}</th>
-						    	<th>${bomList.matId}</th>
-						    	<th>${bomList.matNm}</th>
-						    	<th>${bomList.quantityUnits}</th>
-						    	<th>${bomList.bomProdQuantity}</th>
-						    	<th>
-						    		<!-- ★★★ 메소드 링크할 것 -->
-										<%-- <button type="button" class="btn btn-secondary btn-sm btn-update" onclick="editRow(<%= /* list.getList_seq() */ %>)"> --%>
-										<button type="button" class="btn btn-secondary btn-sm btn-update" onclick="editRow(${bomList.listSeq})">
-	                  	수정
-	                  </button>
-						    	</th>
-						    </tr>
-						    <!-- 수정 Form이 들어갈 빈 행 추가 -->
-	             	<%-- <tr id="modifyRow_<%= /* list.getList_seq() */ %>" style="display: none;"> --%>
-	             	<tr id="modifyRow_${bomList.listSeq" style="display: none;">
-	              	<td colspan="14"></td>
-	              </tr>
-	<%
-		/* } */
-	%>
-									</c:forEach>
-							  </tbody>
-							</table>
-						</div>
-						
-						<!-- 페이지 버튼 -->
-						<!-- #에 페이지 넘어가는 링크 연결할 것 -->
-						<!-- <div class="BOM_list page">
-							<nav aria-label="Page navigation example">
-							  <ul class="pagination">
-							    <li class="page-item">
-							      <a class="page-link" href="./bomDelete.jsp" aria-label="Previous">
-							        <span aria-hidden="true">&laquo;</span>
-							      </a>
-							    </li>
-							    <li class="page-item"><a class="page-link" href="#">1</a></li>
-							    <li class="page-item"><a class="page-link" href="#">2</a></li>
-							    <li class="page-item"><a class="page-link" href="#">3</a></li>
-							    <li class="page-item">
-							      <a class="page-link" href="#" aria-label="Next">
-							        <span aria-hidden="true">&raquo;</span>
-							      </a>
-							    </li>
-							  </ul>
-							</nav>
-						</div> -->
+								<c:forEach items="${bomList}" var="bom">
+							  	<tr data-row-id="<c:out value='${bom.listSeq}' />">
+							    	<td>
+							    		<div class="form-check">
+							    			<!-- delete 쿼리문에 필요한 값인 bomId, matId를 넘겨야 함 => value 값에 넣기 -->
+											  <input class="form-check-input chk" type="checkbox" value="<c:out value='${bom.bomId}' />, <c:out value='${bom.matId}' />" id="flexCheckDefault" name="deleteCheckBox">
+											  <label class="form-check-label" for="flexCheckDefault"></label>
+											</div>
+							    	</td>
+							    	<td><c:out value='${bom.listSeq}' /></td>
+							    	<td><c:out value='${bom.bomId}' /></td>
+							    	<td><c:out value='${bom.prodId}' /></td>
+							    	<td><c:out value='${bom.prodNm}' /></td>
+							    	<td><c:out value='${bom.prodDiv}' /></td>
+							    	<td><c:out value='${bom.prodSpec}' /></td>
+							    	<td><c:out value='${bom.lotSize}' /></td>
+							    	<td><c:out value='${bom.matDiv}' /></td>
+							    	<td><c:out value='${bom.matId}' /></td>
+							    	<td><c:out value='${bom.matNm}' /></td>
+							    	<td><c:out value='${bom.quantityUnits}' /></td>
+							    	<td><c:out value='${bom.bomProdQuantity}' /></td>
+							    	<td>
+							    		<!-- ★★★ 메소드 링크할 것 -->
+											<%-- <button type="button" class="btn btn-secondary btn-sm btn-update" onclick="editRow(${bom.listSeq})"> --%>
+											<button type="button" class="btn btn-secondary btn-sm btn-update" onclick="#">
+		                  	수정
+		                  </button>
+						    		</td>
+							    </tr>
+							    <!-- 수정 Form이 들어갈 빈 행 추가 -->
+		             	<%-- <tr id="modifyRow_<%= /* list.getList_seq() */ %>" style="display: none;"> --%>
+		             	<tr id="modifyRow_<c:out value='${bom.listSeq}' />" style="display: none;">
+		              	<td colspan="14"></td>
+		              </tr>
+								</c:forEach>
+						  </tbody>
+						</table>
 					</div>
+					
 				</div>
-			</form>
+			</div>
+		</form>
 	</section>
 	
 	
@@ -239,28 +199,8 @@
 	<!-- footer 공통 부분 연결 -->
 	<%@ include file="../includes/footer.jsp" %>
 
-<script src="/resources/js/bom.js"></script>
+<script defer src="/resources/js/bom.js"></script>
 <script>
-	/* BOM 현황 */
-	console.log("==========");
-	console.log("JS TEST");
-	
-	const prodNmValue = '<c:out value="${searchList.searchProdNm}" />';
-	const prodDivValue = '<c:out value="${searchList.searchProdDiv}" />';
-	const matNmValue = '<c:out value="${searchList.searchMatNmValue}" />';
-	
-	// 현재 선택된 '제품명', '제품 규격', '재료명'을 저장할 전역 변수 선언 => 수정/삭제
-	var selectedProdNm = null;
-	var selectedProdDiv = null;
-	var selectedMatNm = null;
-	
-	var bomListUL = $("#searchProdNm");
-	function showProdNmList() {		// 제품명 목록 가져와서 화면에 뿌려주는 함수 선언(선택 옵션)
-		// 1. 제품명 목록 rest ajax로 가져오기
-		bomService.getBomList(
-					{ searchProdNm: product_nm }
-		);
-	}
 	
 </script>
 </body>
