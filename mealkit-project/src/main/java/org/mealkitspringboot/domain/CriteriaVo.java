@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /*검색을 위한 클래스 VO*/
 @Getter
 @Setter
@@ -14,8 +15,7 @@ public class CriteriaVo {
     private String matNm;
     private List<String> keywords;
 
-
-    // 기본 생성자 추가
+   /* // 기본 생성자 추가
     public CriteriaVo() {
         this.keywords = new ArrayList<>();
     }
@@ -28,7 +28,7 @@ public class CriteriaVo {
         } else {
             return keywords.toArray(new String[keywords.size()]);
         }
-    }
+    }*/
 
     /* BOM 검색 옵션 */
     public CriteriaVo(String prodNm, String prodDiv, String matNm) {

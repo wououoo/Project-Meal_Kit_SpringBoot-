@@ -61,9 +61,7 @@
 						</div>
 						<div class="search_tit search">
 							<span class="material-symbols-outlined">
-								<!-- ★★★ # 에 검색 메소드 연결할 것 -->
-								<!-- <a href="javascript:submitReadBomForm();">Search</a> -->
-								<a href="#">Search</a>
+								<a id="searchButton" href="javascript:searchBomList();">Search</a>
 							</span>
 						</div>
 					</div>
@@ -75,36 +73,39 @@
 								<select class="form-select" name="prodNm" id="prodNm" aria-label="Default select example">
 									<option value="">제품명 선택</option>
 									<c:forEach items="${prodNmList}" var="prodNms">
-										<option value="<c:out value='${prodNms.prodNm}' />" >
-											<%-- <c:if test ="${user.selectedprodNm eq prodNmList.prodNm}">selected="selected"</c:if> --%>
+										<option value="<c:out value='${prodNms.prodNm}' />" 
+													<c:if test="${param.prodNm != null && param.prodNm == prodNms.prodNm}">selected</c:if> >
 											<c:out value='${prodNms.prodNm}' />
 										</option>
 									</c:forEach>
 								</select>
+								<%-- <input type="hidden" id="prod_Nm" name="prod_Nm" value="${prod_Nm}"> --%>
 							</div>
 							<div class="search_body prodSpec_search">
 								<h3>제품종류</h3>
 									<select class="form-select" name="prodDiv" id="prodDiv" aria-label="Default select example" >
 										<option value="">제품종류 선택</option>
 									  <c:forEach items="${prodDivList}" var="prodDivs">
-											<option value="<c:out value='${prodDivs.prodDiv}' />" >
-												<%-- <c:if test ="${user.selectedprodDiv eq prodDivList.prodDiv}">selected="selected"</c:if>> --%>
+											<option value="<c:out value='${prodDivs.prodDiv}' />"
+														<c:if test="${param.prodDiv != null && param.prodDiv == prodDivs.prodDiv}">selected</c:if> >
 												<c:out value='${prodDivs.prodDiv}' />
 											</option>
 										</c:forEach>
 									</select>
+									<%-- <input type="hidden" id="prod_Div" name="prod_Div" value="${prod_Div}"> --%>
 							</div>
 							<div class="search_body matNm_search">
 								<h3>재료명</h3>
 									<select class="form-select" name="matNm" id="matNm" aria-label="Default select example">
 									  <option value="">재료명 선택</option>
 										<c:forEach items="${matNmList}" var="matNms">
-											<option value="<c:out value='${matNms.matNm}' />" >
-												<%-- <c:if test ="${user.selectedMatNm eq matNmList.matNmResult}">selected="selected"</c:if>> --%>
+											<option value="<c:out value='${matNms.matNm}' />" 
+														<c:if test="${param.matNm != null && param.matNm == matNms.matNm}">selected</c:if> >
 												<c:out value='${matNms.matNm}' />
 											</option>
 										</c:forEach>
 									</select>
+									<%-- <input type="hidden" id="mat_Nm" name="mat_Nm" value="${mat_Nm}"> --%>
 							</div>
 						</form>
 					</div>
@@ -112,15 +113,13 @@
 			</div>
 			
 			<!-- BOM 목록 -->
-			<form action="./bomDelete.jsp" method="post" id="container-all">
+			<!-- form action 수정할 것. -->
+			<!-- <form action="./bomDelete.jsp" method="post" id="container-all"> -->
+			<form action="/bom/remove" method="post" id="containerAll" onSubmit="return false">
 				<div class="inner list_container">
 	    		<div class="inner BOM_list">
 	        	<div class="BOM_list bom_delete">
-	        		<!-- checkBox 누른 것을 삭제하는 함수 연결할 것 -->
-	            <!-- <a href="javascript: submitDeleteRow();"> -->
-	            <a href="#">
-	        	    <button type="button" class="btn btn-secondary btn-sm btn-delete">삭제</button>
-	            </a>
+        	    <button type="button" class="btn btn-secondary btn-sm btn-delete" data-bs-toggle="modal" data-bs-target="#staticBackdrop">삭제</button>
 	       		</div>
 	        	<div class="BOM_list list_box">
 	          <table class="table" id="table">
@@ -128,10 +127,9 @@
 						    <tr>
 						    	<th>
 						    		<div class="form-check">
-						    			<!-- checkAll 누르면 전체 checkBox 선택/해제 적용하는 함수 연결할 것 -->
-										  <!-- <input class="form-check-input" type="checkbox" value="" id="checkAll" onclick="javascript: checkBox();"> -->
-										  <input class="form-check-input" type="checkbox" value="" id="checkAll" onclick="#">
-										  <label class="form-check-label" for="checkAll"></label>
+						    			<!-- allCheckBox 누르면 전체 checkBox 선택/해제 적용하는 함수 연결할 것 -->
+										  <input class="form-check-input" type="checkbox" value="" id="allCheckBox" onclick="javascript: allChecked();">
+										  <label class="form-check-label" for="allCheckBox"></label>
 										</div>
 						    	</th>
 						    	<th>#</th>
@@ -155,7 +153,7 @@
 							    	<td>
 							    		<div class="form-check">
 							    			<!-- delete 쿼리문에 필요한 값인 bomId, matId를 넘겨야 함 => value 값에 넣기 -->
-											  <input class="form-check-input chk" type="checkbox" value="<c:out value='${bom.bomId}' />, <c:out value='${bom.matId}' />" id="flexCheckDefault" name="deleteCheckBox">
+											  <input class="form-check-input chk" type="checkbox" value="<c:out value='${bom.bomId}' />-<c:out value='${bom.matId}' />" id="flexCheckDefault" name="chks" onclick="chkClicked();">
 											  <label class="form-check-label" for="flexCheckDefault"></label>
 											</div>
 							    	</td>
@@ -173,8 +171,7 @@
 							    	<td><c:out value='${bom.bomProdQuantity}' /></td>
 							    	<td>
 							    		<!-- ★★★ 메소드 링크할 것 -->
-											<%-- <button type="button" class="btn btn-secondary btn-sm btn-update" onclick="editRow(${bom.listSeq})"> --%>
-											<button type="button" class="btn btn-secondary btn-sm btn-update" onclick="#">
+											<button type="button" class="btn btn-secondary btn-sm btn-update" onclick="editRow(${bom.listSeq})">
 		                  	수정
 		                  </button>
 						    		</td>
@@ -192,6 +189,25 @@
 				</div>
 			</div>
 		</form>
+		
+		<!-- 삭제 확인용 Modal -->
+		<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="staticBackdropLabel">삭제 하시겠습니까?</h1>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		        삭제를 원하면 확인을 눌러주세요.
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+		        <button type="button" class="btn btn-primary" onclick="javascript: bomDelete();">확인</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 	</section>
 	
 	

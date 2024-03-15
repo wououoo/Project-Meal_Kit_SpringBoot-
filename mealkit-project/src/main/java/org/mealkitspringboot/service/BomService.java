@@ -14,7 +14,8 @@ public interface BomService {
     int register(BomListVo bomListVo);          // BOM 작성
    /* int getCurrval();*/
     int modify(BomListVo bomListVo);            // BOM 수정
-    int remove(Long listSeq);                   // BOM 삭제
+    boolean remove(Long bomId, Long matId);       // BOM 삭제
+    boolean removeOne(Long bomId, Long matId);       // BOM 삭제
     int getTotalCount(Long listSeq);            // BOM 전체 개수 조회(무한 스크롤에 사용)
 
 

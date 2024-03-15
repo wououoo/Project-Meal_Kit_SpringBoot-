@@ -55,14 +55,14 @@
                 AND b.MATERIAL_ID = m.MATERIAL_ID
                 AND b.LOT_ID = i.LOT_ID
         ]]>
-                <if test="keyword.prodNm != null and keyword.prodNm != ''">
-                    AND fp.PRODUCT_NM LIKE '%' || #{keyword.prodNm} || '%'
+                <if test="prodNm != null and prodNm != ''">
+                    AND fp.PRODUCT_NM LIKE '%' || #{prodNm} || '%'
                 </if>
-                <if test="keyword.prodDiv != null and keyword.prodDiv != ''">
-                    AND fp.PRODUCT_DIV LIKE '%' || #{keyword.prodDiv} || '%'
+                <if test="prodDiv != null and prodDiv != ''">
+                    AND fp.PRODUCT_DIV LIKE '%' || #{prodDiv} || '%'
                 </if>
-                <if test="keyword.matNm != null and keyword.matNm != ''">
-                    AND m.MATERIAL_NM LIKE '%' || #{keyword.matNm} || '%'
+                <if test="matNm != null and matNm != ''">
+                    AND m.MATERIAL_NM LIKE '%' || #{matNm} || '%'
                 </if>
                 <![CDATA[
             ORDER BY
@@ -91,14 +91,25 @@
         ]]>
     </select>
 
-    <!-- BOM 삭제 -->
-    <delete id="delete">
-        DELETE
-        FROM
-            BOM b
-        WHERE
-            b.bom_id = #{bomId}
-            AND b.material_id = #{matId}
+    <!-- 체크한 BOM 삭제(여러개의 정보를 한번에 삭제할 수 있어야 함) -->
+    <!-- 여러 개의 BOM을 삭제하는 쿼리 -->
+    <delete id="delete" parameterType="org.mealkitspringboot.domain.BomListVo">
+        DELETE FROM BOM
+        WHERE bom_id IN
+        <foreach collection="bomIds" item="bomId" open="(" separator="," close=")">
+            #{bomId}
+        </foreach>
+        AND material_id IN
+        <foreach collection="matIds" item="matId" open="(" separator="," close=")">
+            #{matId}
+        </foreach>
+    </delete>
+
+    <!-- 1개의 BOM을 삭제하는 쿼리 -->
+    <delete id="deleteOne" parameterType="org.mealkitspringboot.domain.BomListVo">
+        DELETE FROM BOM
+        WHERE bom_id = #{bomId}
+        AND material_id = #{matId}
     </delete>
 
     <!-- BOM 수정 -->

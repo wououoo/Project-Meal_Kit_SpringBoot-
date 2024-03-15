@@ -1,6 +1,5 @@
 package org.mealkitspringboot.service;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.log4j.Log4j;
 import org.mealkitspringboot.domain.BomListVo;
 import org.mealkitspringboot.domain.CriteriaVo;
@@ -8,11 +7,8 @@ import org.mealkitspringboot.mapper.BomMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Log4j
 @Service
@@ -31,14 +27,14 @@ public class BomServiceImpl implements BomService {
     @Override
     public List<BomListVo> getProdDivList() {
         log.info("getProdDivList.....");
-        return bomMapper.getProdNmList();
+        return bomMapper.getProdDivList();
     }
 
     /* select option 재료명 */
     @Override
     public List<BomListVo> getMatNmList() {
         log.info("getProdNmList.....");
-        return bomMapper.getProdNmList();
+        return bomMapper.getMatNmList();
     }
 
     /* BOM 현황 조회(검색 기능) 서비스 */
@@ -78,10 +74,20 @@ public class BomServiceImpl implements BomService {
 
     /* BOM 삭제 서비스 */
     @Override
-    public int remove(Long listSeq) {
-        log.info("remove......" + listSeq);
-        return bomMapper.delete(listSeq);
+    public boolean remove(Long bomId, Long matId) {
+        log.info("remove....., bomIds: " + bomId + ", matIds: " + matId);
+        return bomMapper.delete(bomId, matId) == 1;
     }
+
+    @Override
+    public boolean removeOne(Long bomId, Long matId) {
+        log.info("remove....., bomIds: " + bomId + ", matIds: " + matId);
+        BomListVo bomVo = new BomListVo();
+        bomVo.setBomId(bomId);
+        bomVo.setMatId(matId);
+        return bomMapper.deleteOne(bomVo) == 1;
+    }
+
 
     /* BOM 목록 전체 개수 조회 서비스(무한 스크롤에 사용) */
     @Override

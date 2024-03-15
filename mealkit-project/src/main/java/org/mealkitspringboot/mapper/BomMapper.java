@@ -14,7 +14,8 @@ public interface BomMapper {
     int insert(BomListVo bomListVo);        // BOM 등록
     int readCurrval();                      // 무한 스크롤(스크롤 위치 조회)
     int getCountByListSeq(Long listSeq);    // BOM 현황 전체 개수 조회(무한 스크롤에 사용)
-    int delete(Long listSeq);               // BOM 삭제
+    int delete(Long bomId, Long matId);       // BOM 삭제
+    int deleteOne(BomListVo bomListVo);       // BOM 삭제
     int update(BomListVo bom);              // BOM 수정
 
     /*List<BomListVo> getListWithSearch(@Param("cri") CriteriaVo cri);    // BOM 검색 조회*/

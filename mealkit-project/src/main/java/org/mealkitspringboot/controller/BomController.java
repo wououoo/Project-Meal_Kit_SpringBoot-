@@ -6,11 +6,11 @@ import org.mealkitspringboot.domain.CriteriaVo;
 import org.mealkitspringboot.service.BomService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -23,14 +23,15 @@ public class BomController {
         this.bomService = bomService;
     }
 
+    /* BOM 현황 조회(with 검색) */
     @GetMapping("/getBomList")
     public String getList(CriteriaVo cri, Model model) {
         log.info("getBomList");
 
-        List<BomListVo> prodNmList = bomService.getProdNmList();
-        List<BomListVo> prodDivList = bomService.getProdDivList();
-        List<BomListVo> matNmList = bomService.getMatNmList();
-        List<BomListVo> bomList = bomService.getList(cri);
+        List<BomListVo> prodNmList = bomService.getProdNmList();        // 제품명 콤보박스로 데이터 가져오기
+        List<BomListVo> prodDivList = bomService.getProdDivList();      // 제품종류 콤보박스로 데이터 가져오기
+        List<BomListVo> matNmList = bomService.getMatNmList();          // 재료명 콤보박스로 데이터 가져오기
+        List<BomListVo> bomList = bomService.getList(cri);              // BOM 현황 리스트(with 검색)
 
         model.addAttribute("prodNmList", prodNmList);
         model.addAttribute("prodDivList", prodDivList);
@@ -39,4 +40,38 @@ public class BomController {
 
         return "/bom/getBomList";        // 해당하는 뷰의 이름을 반환
     }
+
+    /* BOM 삭제 */
+    @PostMapping("/remove")
+    public String remove(
+//            @RequestParam("bomId") List<String> bomIds,
+//            @RequestParam("matId") List<String> matIds,
+            String[] chks,           // bomId, matIds
+//            List<String> chks,           // bomId, matIds
+            RedirectAttributes rttr
+    ) {
+        List<String> listBomMatIds = Arrays.asList(chks);
+        List<String> bomIds = new ArrayList<>();
+        List<String> matIds = new ArrayList<>();
+
+        listBomMatIds.forEach(bomMatId -> {
+            // split(",")로 할 경우, 1개만 삭제할 때 문제가 되므로 -로 바꿈(jsp 코드도 수정함.)
+            String[] arrBomMatId = bomMatId.split("-");
+            bomIds.add(arrBomMatId[0]);
+            matIds.add(arrBomMatId[1]);
+        });
+
+        for(int i=0; i<bomIds.size(); i++) {
+            Long bomId = Long.valueOf(bomIds.get(i).trim());
+            Long matId = Long.valueOf(matIds.get(i).trim());
+
+            log.info("remove....., bomIds: " + bomId + ", matIds: " + matId);
+            bomService.removeOne(bomId, matId);
+        }
+
+        return "redirect:/bom/getBomList";
+    }
+
+
+
 }

@@ -11,15 +11,10 @@ body {
 }
 
 .main_wrap {
-	/* background-color: orange; */
-}
-
-.search_container {
-	/* background-color: skyblue; */
+	padding-bottom: 15%;
 }
 
 .search_container .BOM_list_tit {
-	/* background-color: gray; */
 	margin: 3% 0;
 }
 
@@ -29,10 +24,8 @@ body {
 }
 
 .search_header {
-	/* background-color: lightgray; */
 	margin: 2% 48%;
 	width: 50%;
-	/* float: right; */
 }
 
 .search_header .search_tit {
