@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BomListVo {
+public class BomListDto {
 	private Long listSeq;
 	private Long bomId;
 	private Long prodId;

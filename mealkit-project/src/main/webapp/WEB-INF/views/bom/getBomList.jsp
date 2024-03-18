@@ -2,10 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page import="java.util.*" %>
-<%@ page import="org.mealkitspringboot.mapper.*"%>
-<%@ page import="org.mealkitspringboot.config.*"%>
-<%@ page import="org.mealkitspringboot.domain.*"%>
-
 
 <!DOCTYPE html>
 <html>
@@ -34,9 +30,6 @@
 	
 	<!-- bomList.css 연결 -->
 	<link href="/resources/css/bomList.css" rel="stylesheet">
-
-	<!-- jQuery 연결 -->
-	<script defer src="/resources/js/readBom.js"></script>
 
 </head>
 <body>	
@@ -119,7 +112,7 @@
 				<div class="inner list_container">
 	    		<div class="inner BOM_list">
 	        	<div class="BOM_list bom_delete">
-        	    <button type="button" class="btn btn-secondary btn-sm btn-delete" data-bs-toggle="modal" data-bs-target="#staticBackdrop">삭제</button>
+        	    <button type="button" class="btn btn-secondary btn-sm btn-delete" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">삭제</button>
 	       		</div>
 	        	<div class="BOM_list list_box">
 	          <table class="table" id="table">
@@ -138,6 +131,7 @@
 						    	<th>제품명</th>
 						    	<th>종류</th>
 						    	<th>규격</th>
+						    	<th>LOT코드</th>
 						    	<th>LOT사이즈</th>
 						    	<th>종류</th>
 						    	<th>재료코드</th>
@@ -147,69 +141,105 @@
 						    	<th>수정</th>
 						    </tr>
 						  </thead>
+						  <c:forEach items="${bomList}" var="bom">
 						  <tbody id="tBody">
-								<c:forEach items="${bomList}" var="bom">
-							  	<tr data-row-id="<c:out value='${bom.listSeq}' />">
-							    	<td>
-							    		<div class="form-check">
-							    			<!-- delete 쿼리문에 필요한 값인 bomId, matId를 넘겨야 함 => value 값에 넣기 -->
-											  <input class="form-check-input chk" type="checkbox" value="<c:out value='${bom.bomId}' />-<c:out value='${bom.matId}' />" id="flexCheckDefault" name="chks" onclick="chkClicked();">
-											  <label class="form-check-label" for="flexCheckDefault"></label>
-											</div>
-							    	</td>
-							    	<td><c:out value='${bom.listSeq}' /></td>
-							    	<td><c:out value='${bom.bomId}' /></td>
-							    	<td><c:out value='${bom.prodId}' /></td>
-							    	<td><c:out value='${bom.prodNm}' /></td>
-							    	<td><c:out value='${bom.prodDiv}' /></td>
-							    	<td><c:out value='${bom.prodSpec}' /></td>
-							    	<td><c:out value='${bom.lotSize}' /></td>
-							    	<td><c:out value='${bom.matDiv}' /></td>
-							    	<td><c:out value='${bom.matId}' /></td>
-							    	<td><c:out value='${bom.matNm}' /></td>
-							    	<td><c:out value='${bom.quantityUnits}' /></td>
-							    	<td><c:out value='${bom.bomProdQuantity}' /></td>
-							    	<td>
-							    		<!-- ★★★ 메소드 링크할 것 -->
-											<button type="button" class="btn btn-secondary btn-sm btn-update" onclick="editRow(${bom.listSeq})">
-		                  	수정
-		                  </button>
-						    		</td>
-							    </tr>
-							    <!-- 수정 Form이 들어갈 빈 행 추가 -->
-		             	<%-- <tr id="modifyRow_<%= /* list.getList_seq() */ %>" style="display: none;"> --%>
-		             	<tr id="modifyRow_<c:out value='${bom.listSeq}' />" style="display: none;">
-		              	<td colspan="14"></td>
-		              </tr>
-								</c:forEach>
+						  	<tr data-row-id="<c:out value='${bom.listSeq}' />">
+						    	<td>
+						    		<div class="form-check">
+						    			<!-- delete 쿼리문에 필요한 값인 bomId, matId를 넘겨야 함 => value 값에 넣기 -->
+										  <input class="form-check-input chk" type="checkbox" value="<c:out value='${bom.bomId}' />-<c:out value='${bom.matId}' />" id="flexCheckDefault" name="chks" onclick="chkClicked();">
+										  <label class="form-check-label" for="flexCheckDefault"></label>
+										</div>
+						    	</td>
+						    	<td><c:out value='${bom.listSeq}' /></td>
+						    	<td><c:out value='${bom.bomId}' /></td>
+						    	<td><c:out value='${bom.prodId}' /></td>
+						    	<td><c:out value='${bom.prodNm}' /></td>
+						    	<td><c:out value='${bom.prodDiv}' /></td>
+						    	<td><c:out value='${bom.prodSpec}' /></td>
+						    	<td><c:out value='${bom.lotId}' /></td>
+						    	<td><c:out value='${bom.lotSize}' /></td>
+						    	<td><c:out value='${bom.matDiv}' /></td>
+						    	<td><c:out value='${bom.matId}' /></td>
+						    	<td><c:out value='${bom.matNm}' /></td>
+						    	<td><c:out value='${bom.quantityUnits}' /></td>
+						    	<td><c:out value='${bom.bomProdQuantity}' /></td>
+						    	<td>
+						    		<!-- ★★★ 메소드 링크할 것 -->
+										<button type="button" class="btn btn-secondary btn-sm btn-update" onclick="editRow(${bom.listSeq})">
+	                  	수정
+	                  </button>
+					    		</td>
+						    </tr>
+						    <!-- 수정 Form이 들어갈 빈 행 추가 -->
+	             	<%-- <tr id="modifyRow_<%= /* list.getList_seq() */ %>" style="display: none;"> --%>
+	             	<tr id="modifyRow_<c:out value='${bom.listSeq}' />" style="display: none;">
+	              	<td colspan="14"></td>
+	              </tr>
 						  </tbody>
-						</table>
-					</div>
-					
+						  <!-- 삭제 확인용 Modal -->
+							<div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+							  <div class="modal-dialog">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <h1 class="modal-title fs-5" id="staticBackdropLabel">삭제 하시겠습니까?</h1>
+							        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							      </div>
+							      <div class="modal-body">
+							        삭제를 원하면 확인을 눌러주세요.
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+							        <button type="button" class="btn btn-primary" onclick="javascript: bomDelete();">확인</button>
+							      </div>
+							    </div>
+							  </div>
+							</div>
+							
+							<!-- 수정 확인용 Modal -->
+							<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+							  <div class="modal-dialog">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <h1 class="modal-title fs-5" id="staticBackdropLabel">수정 하시겠습니까?</h1>
+							        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							      </div>
+							      <div class="modal-body">
+							        수정을 원하면 확인을 눌러주세요.
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+							        <button type="button" class="btn btn-primary" onclick="javascript: submitUpdate('<c:out value='${bom.listSeq}' />');">확인</button>
+							      </div>
+							    </div>
+							  </div>
+							</div>
+					  </c:forEach>
+					</table>
 				</div>
 			</div>
-		</form>
-		
-		<!-- 삭제 확인용 Modal -->
-		<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-		  <div class="modal-dialog">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h1 class="modal-title fs-5" id="staticBackdropLabel">삭제 하시겠습니까?</h1>
-		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-		      </div>
-		      <div class="modal-body">
-		        삭제를 원하면 확인을 눌러주세요.
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-		        <button type="button" class="btn btn-primary" onclick="javascript: bomDelete();">확인</button>
-		      </div>
-		    </div>
-		  </div>
 		</div>
-	</section>
+	</form>
+</section>
 	
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="myModalLabel">Modal title</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">처리가 완료되었습니다.</div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+	        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+	      </div>
+	    </div>
+	  </div>
+	</div>
 	
 	<!-- ============================================================================== -->
 	<!-- footer 공통 부분 연결 -->
@@ -217,7 +247,24 @@
 
 <script defer src="/resources/js/bom.js"></script>
 <script>
-	
+	$(document).ready(
+			function() {
+				var result = '<c:out value="${result}" />';
+				checkModal(result);
+				history.replaceState({}, null, null);		// 브라우저 뒤로가기 문제 해결
+				
+				function checkModal(result) {
+					if(result === '' || hisotry.state)
+						return;
+					
+					if(result && parseInt(result) > 0) {
+						$(".modal-body").html("BOM " + parseInt(result) + " 번이 등록되었습니다.");
+					}
+					
+					$("#myModal").modal("show");
+				}
+			}
+	);
 </script>
 </body>
 </html>

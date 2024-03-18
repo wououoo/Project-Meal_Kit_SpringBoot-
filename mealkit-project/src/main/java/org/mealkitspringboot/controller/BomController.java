@@ -1,8 +1,9 @@
 package org.mealkitspringboot.controller;
 
 import lombok.extern.log4j.Log4j;
-import org.mealkitspringboot.domain.BomListVo;
-import org.mealkitspringboot.domain.CriteriaVo;
+import org.mealkitspringboot.domain.BomListDto;
+import org.mealkitspringboot.domain.BomModifyDto;
+import org.mealkitspringboot.domain.CriteriaDto;
 import org.mealkitspringboot.service.BomService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,13 +26,13 @@ public class BomController {
 
     /* BOM 현황 조회(with 검색) */
     @GetMapping("/getBomList")
-    public String getList(CriteriaVo cri, Model model) {
+    public String getList(CriteriaDto cri, Model model) {
         log.info("getBomList");
 
-        List<BomListVo> prodNmList = bomService.getProdNmList();        // 제품명 콤보박스로 데이터 가져오기
-        List<BomListVo> prodDivList = bomService.getProdDivList();      // 제품종류 콤보박스로 데이터 가져오기
-        List<BomListVo> matNmList = bomService.getMatNmList();          // 재료명 콤보박스로 데이터 가져오기
-        List<BomListVo> bomList = bomService.getList(cri);              // BOM 현황 리스트(with 검색)
+        List<BomListDto> prodNmList = bomService.getProdNmList();        // 제품명 콤보박스로 데이터 가져오기
+        List<BomListDto> prodDivList = bomService.getProdDivList();      // 제품종류 콤보박스로 데이터 가져오기
+        List<BomListDto> matNmList = bomService.getMatNmList();          // 재료명 콤보박스로 데이터 가져오기
+        List<BomListDto> bomList = bomService.getList(cri);              // BOM 현황 리스트(with 검색)
 
         model.addAttribute("prodNmList", prodNmList);
         model.addAttribute("prodDivList", prodDivList);
@@ -66,12 +67,45 @@ public class BomController {
             Long matId = Long.valueOf(matIds.get(i).trim());
 
             log.info("remove....., bomIds: " + bomId + ", matIds: " + matId);
-            bomService.removeOne(bomId, matId);
+            if(bomService.remove(bomId, matId)) {
+                rttr.addFlashAttribute("result", "success");
+            }
         }
 
         return "redirect:/bom/getBomList";
     }
 
+    /* BOM 수정 */
+    @PostMapping("/modify")
+    public String modify(BomModifyDto bomModifyDto, RedirectAttributes rttr) {
+        log.info("modify: " + bomModifyDto);
+
+        if(bomService.modify(bomModifyDto)) {
+            rttr.addFlashAttribute("result", "success");
+        }
+        return "redirect:/bom/getBomList";
+    }
+
+    /* BOM 등록 */
+    @GetMapping("/registerBom")
+    public void registerBom() {
+
+    }
+    /**
+     * 게시물 등록
+     * @param bomListDto
+     * @param rttr
+     * @return
+     */
+    @PostMapping("/registerBom")
+    public String registerBom(BomListDto bomListDto, RedirectAttributes rttr) {
+        log.info("register: " + bomListDto);
+
+        bomService.registerBom(bomListDto);     // 실제 BOM 입력
+        rttr.addFlashAttribute("result", bomListDto.getBomId());
+
+        return "redirect:/bom/getBomList";
+    }
 
 
 }

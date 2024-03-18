@@ -1,8 +1,10 @@
 package org.mealkitspringboot.service;
 
 import lombok.extern.log4j.Log4j;
-import org.mealkitspringboot.domain.BomListVo;
-import org.mealkitspringboot.domain.CriteriaVo;
+import org.mealkitspringboot.domain.BomDeleteDto;
+import org.mealkitspringboot.domain.BomListDto;
+import org.mealkitspringboot.domain.BomModifyDto;
+import org.mealkitspringboot.domain.CriteriaDto;
 import org.mealkitspringboot.mapper.BomMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,28 +20,28 @@ public class BomServiceImpl implements BomService {
 
     /* select option 제품명 */
     @Override
-    public List<BomListVo> getProdNmList() {
+    public List<BomListDto> getProdNmList() {
         log.info("getProdNmList....." );
         return bomMapper.getProdNmList();
     }
 
     /* select option 제품규격 */
     @Override
-    public List<BomListVo> getProdDivList() {
+    public List<BomListDto> getProdDivList() {
         log.info("getProdDivList.....");
         return bomMapper.getProdDivList();
     }
 
     /* select option 재료명 */
     @Override
-    public List<BomListVo> getMatNmList() {
+    public List<BomListDto> getMatNmList() {
         log.info("getProdNmList.....");
         return bomMapper.getMatNmList();
     }
 
     /* BOM 현황 조회(검색 기능) 서비스 */
     @Override
-    public List<BomListVo> getList(CriteriaVo cri) {
+    public List<BomListDto> getList(CriteriaDto cri) {
         log.info("getList.........");
 
         return bomMapper.getList(cri);
@@ -48,8 +50,8 @@ public class BomServiceImpl implements BomService {
     /* BOM 등록 서비스 */
     @Override
     @Transactional
-    public int register(BomListVo bomListVo) {
-        log.info("register......" + bomListVo);
+    public int registerBom(BomListDto bomListDto) {
+        log.info("register......" + bomListDto);
 
         // 1. 제품정보 처리
         // if product id 있으면 skip 없으면 insert 처리
@@ -62,30 +64,26 @@ public class BomServiceImpl implements BomService {
         // 3.
         // bomMapper.insert(bomListVo)
 
-        return bomMapper.insert(bomListVo);
+        return bomMapper.insert(bomListDto);
     }
 
     /* BOM 수정 서비스 */
     @Override
-    public int modify(BomListVo bomListVo) {
-        log.info("modify......" + bomListVo);
-        return bomMapper.update(bomListVo);
+    public boolean modify(BomModifyDto bomModifyDto) {
+        log.info("modify......" + bomModifyDto);
+        return bomMapper.update(bomModifyDto) == 1;
+        // 정상적인 수정/삭제가 이루어지면 1이라는 값이 반환되므로,
+        // '==' 연산자를 이용하여 true/false를 처리할 수 있다.
     }
 
     /* BOM 삭제 서비스 */
     @Override
     public boolean remove(Long bomId, Long matId) {
         log.info("remove....., bomIds: " + bomId + ", matIds: " + matId);
-        return bomMapper.delete(bomId, matId) == 1;
-    }
-
-    @Override
-    public boolean removeOne(Long bomId, Long matId) {
-        log.info("remove....., bomIds: " + bomId + ", matIds: " + matId);
-        BomListVo bomVo = new BomListVo();
+        BomDeleteDto bomVo = new BomDeleteDto();
         bomVo.setBomId(bomId);
         bomVo.setMatId(matId);
-        return bomMapper.deleteOne(bomVo) == 1;
+        return bomMapper.delete(bomVo) == 1;
     }
 
 

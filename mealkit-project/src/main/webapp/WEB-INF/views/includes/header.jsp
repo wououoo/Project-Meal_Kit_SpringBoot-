@@ -93,10 +93,10 @@
                   <h4>BOM</h4>
                   <ul>
                     <li>
-                    	<a href="./BomList.jsp">BOM 현황</a>
+                    	<a href="/bom/getBomList">BOM 현황</a>
                     </li>
                     <li>
-                    	<a href="./bomInsertForm.jsp">BOM 등록</a>
+                    	<a href="./registerBom.jsp">BOM 등록</a>
                     </li>
                   </ul>
                 </li>

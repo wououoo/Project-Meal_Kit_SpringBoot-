@@ -7,6 +7,6 @@ import java.util.Map;
 
 @Setter
 @Getter
-public class MybatisDynamicTestVo {
+public class MybatisDynamicTestDto {
     private Map<String, String> map;
 }

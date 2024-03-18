@@ -96,57 +96,53 @@ function editRow(rowId) {
 
     // 수정을 위한 동적 Form 양식 만들기
     var dynamicForm = document.createElement('form');
-    /*dynamicForm.setAttribute('action', './bomUpdate.jsp');*/
-    dynamicForm.setAttribute('action', '수정하는 메소드 연결할 것.');
+    dynamicForm.setAttribute('action', '/bom/modify');
     dynamicForm.setAttribute('method', 'post');
     dynamicForm.setAttribute('id', 'modifyForm_' + rowId);
     dynamicForm.style.display = 'flex';
     dynamicForm.style.alignItems = 'center';
 
-    // 각 행의 cell마다 input field 또는 텍스트 생성
-    for (var i = 2; i < tableData.length - 1; i++) {
-      /*var inputContainer = document.createElement('div');*/
-      var inputContainer = document.createElement('td');
-			
-			if (i === 5) {
-				// 수정 가능한 데이터 => input 필드 생성
-        var input = document.createElement('input');
-        input.setAttribute('type', 'text');
-        input.setAttribute('name', 'editData_' + i);
-        input.setAttribute('value', tableData[i].innerText);
-        input.style.width = '82px';  // 입력 칸의 너비 조정
-        inputContainer.appendChild(input);
-			} else if (i === 6 || i === 7 || i === 8 || i === 9 || i === 10 || i === 11 || i === 12) {
-        // 수정 가능한 데이터 => input 필드 생성
-        var input = document.createElement('input');
-        input.setAttribute('type', 'text');
-        input.setAttribute('name', 'editData_' + i);
-        input.setAttribute('value', tableData[i].innerText);
-        input.style.width = '60px';  // 입력 칸의 너비 조정
-        inputContainer.appendChild(input);
-      } else {
-        // 텍스트로 표시되는 경우 span 요소 생성
-        var textSpan = document.createElement('span');
-        textSpan.innerText = tableData[i].innerText;
-        inputContainer.appendChild(textSpan);
-      }
-
-      // 각 cell의 너비 조정
-      if(i === 2) {
-				// 동적 Form의 첫 번째 cell의 시작 위치
-				inputContainer.style.marginLeft = '10%';
-			} else {
-				inputContainer.style.marginLeft = '2.5%';  // 간격 조정
-			}
-
-      dynamicForm.appendChild(inputContainer);
-    }
+    // 각 행의 cell마다 input field 생성
+		for (var i = 2; i < tableData.length - 1; i++) {
+		  var inputContainer = document.createElement('td');
+		  var input = document.createElement('input');
+		  input.setAttribute('type', 'text');
+		  input.setAttribute('name', 'editData' + i);
+		  input.setAttribute('id', 'editData' + i);
+		  input.setAttribute('value', tableData[i].innerText);
+		  input.style.width = '60px';  // 입력 칸의 너비 조정
+		  
+		  // 수정 가능한 데이터 너비 조정
+		  if (i === 5) {
+		    input.style.width = '82px';
+		  }
+		
+		  // 수정하지 못하는 데이터 readonly 속성 추가 및 배경색 변경
+		  // bomId, prodId, prodNm, lotId, matId, matNm 
+		  if (i === 2 || i === 3 || i === 4 || i === 7 || i === 10 || i === 11) {
+		    input.setAttribute('readonly', 'readonly');
+		    input.style.backgroundColor = 'gray';  // 회색 배경색 추가
+		  }
+		
+		  // 각 cell의 너비 조정
+		  if (i === 2) {
+		    // 동적 Form의 첫 번째 cell의 시작 위치
+		    inputContainer.style.marginLeft = '10%';
+		  } else {
+		    inputContainer.style.marginLeft = '1.3%';  // 간격 조정
+		  }
+		
+		  inputContainer.appendChild(input);
+		  dynamicForm.appendChild(inputContainer);
+		}
 
     // Confirm 및 Cancel 버튼 생성
     var confirmBtn = document.createElement('button');
     confirmBtn.setAttribute('type', 'button');
     confirmBtn.setAttribute('class', 'btn btn-success btn-sm');
-    confirmBtn.setAttribute('onclick', 'submitUpdate(' + rowId + ')');
+    //confirmBtn.setAttribute('onclick', 'submitUpdate(' + rowId + ')');
+    confirmBtn.setAttribute('data-bs-toggle', 'modal');
+    confirmBtn.setAttribute('data-bs-target', '#staticBackdrop2');	// 수정 확인용 Modal
     confirmBtn.innerText = 'Confirm';
 
     var cancelBtn = document.createElement('button');
@@ -185,7 +181,7 @@ function editRow(rowId) {
   }
 }
 
-/* Confirm 버튼 => 업데이트된 Data를 submit 처리 */
+/* Confirm 버튼 => 업데이트된 Data를 submit 처리(Modal 창의 수정 확인 버튼) */
 function submitUpdate(rowId) {
   var formId = 'modifyForm_' + rowId;
   var dynamicForm = document.getElementById(formId);
@@ -194,25 +190,27 @@ function submitUpdate(rowId) {
   var modifyRow = document.getElementById('modifyRow_' + rowId);
   var buttonsRow = document.getElementById('buttonsRow_' + rowId);
 
-  if (modifyRow) {
-    modifyRow.parentNode.removeChild(modifyRow);
-  }
-
-  if (buttonsRow) {
-    buttonsRow.parentNode.removeChild(buttonsRow);
-  }
-
   // 기존의 수정 버튼 다시 표시
   var updateButton = document.querySelector('tbody tr[data-row-id="' + rowId + '"] .btn-update');
   if (updateButton) {
     updateButton.style.display = 'inline-block';
   }
+  
+  // Submit 처리
+  dynamicForm.action = '/bom/modify';
+  dynamicForm.submit();
 
-  // Submit 전에 Form 요소 제거
+  // Form 요소 삭제는 제출 후에 처리
+  if(modifyRow) {
+		modifyRow.parentNode.removeChild(modifyRow);
+	}
+	if(buttonsRow) {
+		buttonsRow.parentNode.removeChild(buttonsRow);
+	}
+	// Submit 후에 Form 삭제
   dynamicForm.parentNode.removeChild(dynamicForm);
 
-  // Submit 처리
-  dynamicForm.submit();
+  
 }
 
 

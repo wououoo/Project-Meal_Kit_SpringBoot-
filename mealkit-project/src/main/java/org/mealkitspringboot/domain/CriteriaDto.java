@@ -3,13 +3,12 @@ package org.mealkitspringboot.domain;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /*검색을 위한 클래스 VO*/
 @Getter
 @Setter
-public class CriteriaVo {
+public class CriteriaDto {
     private String prodNm;        // 제품명 검색 조건(JSP의 EL(ExpressionLanguage)을 적절하게 매칭할 것)
     private String prodDiv;
     private String matNm;
@@ -31,7 +30,7 @@ public class CriteriaVo {
     }*/
 
     /* BOM 검색 옵션 */
-    public CriteriaVo(String prodNm, String prodDiv, String matNm) {
+    public CriteriaDto(String prodNm, String prodDiv, String matNm) {
         this.prodNm = prodNm;
         this.prodDiv = prodDiv;
         this.matNm = matNm;

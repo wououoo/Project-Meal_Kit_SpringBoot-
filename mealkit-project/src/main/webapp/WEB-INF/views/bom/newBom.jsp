@@ -1,24 +1,13 @@
-<%@page import="java.util.stream.Collectors"%>
-<%@page import="java.security.interfaces.RSAKey"%>
-<%@page import="java.sql.PreparedStatement"%>
-<% request.setCharacterEncoding("UTF-8"); %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page import="java.util.*" %>
-<!-- DB와 연결 -->
-<%@ page import = "java.sql.DriverManager" %>
-<%@ page import = "java.sql.Connection" %>
-<%@ page import = "java.sql.Statement" %>
-<%@ page import = "java.sql.ResultSet" %>
-<%@ page import = "java.lang.Exception, java.sql.SQLException" %>
-<!-- 부트스트랩 연결 -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-<!-- reset.css 연결 -->
- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css">
-<!-- newBom.css 연결 -->
-<link rel="stylesheet" href="./css/newBom.css" />
 
-<script defer src="./js/insertBom.js"></script>
-	
+<!-- newBom.css 연결 -->
+<link href="/resources/css/newBom.css" rel="stylesheet">
+<!-- jQuery 연결 -->
+<script defer src="/resources/js/insertBom.js"></script>
+
 <div class="formbold-main-wrapper">
   <!-- Author: FormBold Team -->
   <!-- Learn More: https://formbold.com -->
@@ -85,7 +74,7 @@
               <div>
                   <label for="inputProdPrice" class="formbold-form-label"> 제품 가격 </label>
                   <input
-                  type="email"
+                  type="text"
                   name="inputProdPrice"
                   placeholder="숫자만 입력할 것"
                   id="inputProdPrice"
@@ -137,7 +126,7 @@
 	        	 <div>
 	        	 	<label for="watchProdPrice" class="formbold-form-label">제품 가격</label>
 	        	 	<input
-	        	 		type="text"
+	        	 		type="number"
 	        	 		name="watchProdPrice"
 	        	 		placeholder="8,900원"
 	        	 		id="watchProdPrice"
@@ -199,7 +188,7 @@
 		          <div>
 		              <label for="inputMatQuantityForBom" class="formbold-form-label"> 수량 </label>
 		              <input
-		              type="text"
+		              type="number"
 		              name="inputMatQuantityForBom"
 		              placeholder="1ea 생산 시 필요한 수량"
 		              id="inputMatQuantityForBom"

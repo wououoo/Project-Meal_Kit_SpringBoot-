@@ -1,22 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@page import="org.mealkitspringboot.mapper.*"%>
-<%@page import="org.mealkitspringboot.config.*"%>
-<%@page import="org.mealkitspringboot.domain.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page import="java.util.*" %>
-<%@page import="java.util.stream.Collectors"%>
-<%@page import="java.security.interfaces.RSAKey"%>
-<%@page import="java.sql.PreparedStatement"%>
-<!-- DB와 연결 -->
-<%@ page import = "java.sql.DriverManager" %>
-<%@ page import = "java.sql.Connection" %>
-<%@ page import = "java.sql.Statement" %>
-<%@ page import = "java.sql.ResultSet" %>
-<%@ page import = "java.lang.Exception, java.sql.SQLException" %>
 
 <!DOCTYPE html>
-<!-- java 연결 -->
-<%@ page import = "dao.*" %>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -27,9 +14,7 @@
 	<!-- reset.css 연결 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css">
 	<!-- main.css 연결 -->
-	<link rel="stylesheet" href="./css/main.css" />
-	<!-- bomList.css 연결 -->
-	<link rel="stylesheet" href="./css/bomInsert.css" />
+	<link href="/resources/css/main.css" rel="stylesheet">
 
 	<!-- google font & google material icon -->
   <!-- Google 나눔고딕 -->
@@ -42,7 +27,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 	<!-- jQuery 연결 -->
-	<script defer src="./js/jquery-3.7.1.min.js"></script>
+	<script src="/resources/js/jquery-3.7.1.min.js"></script>
 </head>
 <body>
 	<!-- header 공통 부분 연결 -->
@@ -61,7 +46,7 @@
 					</div>
 					<div class="inner">
 							<!-- BOM 등록 MultiForm 연결 -->
-							<%@ include file="newBom.jsp" %>
+							<%@ include file="../bom/newBom.jsp" %>
 					</div>
 				</div>
 			</div>
