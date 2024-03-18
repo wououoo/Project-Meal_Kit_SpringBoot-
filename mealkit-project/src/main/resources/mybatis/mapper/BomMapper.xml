@@ -73,18 +73,215 @@
 
     <!-- BOM 등록 ======================================================================== -->
     <!-- 1. 사용자가 입력한 내용의 제품 조회 후, 있으면 skip, 없으면 insert -->
-    <select id="selectProd" resultType="org.mealkitspringboot.domain.BomListDto">
-        SELECT fp.PRODUCT_ID FROM FINISHED_PRODUCT fp
-        WHERE fp.PRODUCT_NM = '김치찌개'
-        AND fp.PRODUCT_SPEC = '2인'
+    <select id="selectProd" resultType="org.mealkitspringboot.domain.BomInsertDto">
+        SELECT
+            fp.PRODUCT_ID as prodId
+        FROM
+            FINISHED_PRODUCT fp
+        WHERE
+            fp.PRODUCT_NM = #{prodNm}
+        AND
+            fp.PRODUCT_SPEC = #{prodSpec}
     </select>
     <insert id="insertProd">
-        INSERT INTO FINISHED_PRODUCT(PRODUCT_NM, PRODUCT_DIV, PRODUCT_SPEC, PRODUCT_PRICE)
+        INSERT INTO FINISHED_PRODUCT
+            (
+            PRODUCT_NM,
+            PRODUCT_DIV,
+            PRODUCT_SPEC,
+            PRODUCT_PRICE
+            )
+        VALUES
+            (
+            #{prodNm},
+            #{prodDiv},
+            #{prodSpec},
+            #{prodPrice}
+            )
+    </insert>
+    <!-- 2. 사용자가 입력한 내용의 재료 조회 후, 있으면 skip, 없으면 insert -->
+    <select id="selectMat" resultType="org.mealkitspringboot.domain.BomInsertDto" >
+        SELECT
+            m.MATERIAL_ID as matId
+        FROM
+            MATERIAL m
+        WHERE
+            m.MATERIAL_NM = #{matNm}
+    </select>
+    <insert id="insertMat">
+        INSERT INTO MATERIAL
+            (
+            MATERIAL_NM,
+            MATERIAL_CLASSIFICATION
+            )
+        VALUES
+            (
+            #{matNm},
+            #{matDiv}
+            )
+    </insert>
+    <!-- 3. 사용자가 입력한 공급업체 insert -->
+    <insert id="insertSup">
+        INSERT INTO SUPPLIER
+            (
+            SUP_NAME
+            , PHONE_NUM
+            , SUP_ADDRESS
+            , SUP_EMAIL
+            , SUP_SELL)
+        VALUES
+            (
+            #{supNm}
+            , #{supContact}
+            , #{supAddress}
+            , #{supEmail}
+            , #{supSell}
+            )
+    </insert>
+    <!-- 4. LOT_ID 조회 및 Insert -->
+    <select id="selectLot" resultType="org.mealkitspringboot.domain.BomInsertDto" >
+        SELECT
+            i.LOT_ID as lotId
+        FROM
+            INSTRUCTION i
+        WHERE
+            i.PRODUCT_ID =
+                (
+                SELECT fp.product_id as prodId
+                FROM FINISHED_PRODUCT fp
+                WHERE fp.PRODUCT_NM = #{prodNm}
+                AND fp.PRODUCT_SPEC = #{prodSpec}
+                )
+    </select>
+    <insert id="insertLot">
+        INSERT INTO INSTRUCTION
+            (
+            lot_id,
+            product_id,
+            lot_size
+            )
+        VALUES
+            (
+            seq_instruction.nextval
+            ,(SELECT fp.PRODUCT_ID as prodId FROM FINISHED_PRODUCT fp
+            WHERE fp.PRODUCT_NM = #{prodNm}
+            AND fp.PRODUCT_SPEC = #{prodSpec})
+            , 1000)
+    </insert>
+    <!-- 5. 기존의 bomId 있는지 조회 후, 있으면 id는 기존에 있던 값으로, 없으면 새로 INSERT -->
+    <select id="selectBomId" resultType="org.mealkitspringboot.domain.BomInsertDto">
+        SELECT
+            DISTINCT b.BOM_ID as bomId
+        FROM
+            BOM b
+        WHERE
+            b.PRODUCT_ID =
+            (
+            SELECT fp.product_id as prodId
+            FROM FINISHED_PRODUCT fp
+            WHERE fp.PRODUCT_NM = #{prodNm}
+            AND fp.PRODUCT_SPEC = #{prodSpec}
+            )
+    </select>
+    <!-- 5-1. 기존에 BOM_ID가 있는 경우(원래 있는 제품이고, 재료만 등록할 때.) -->
+    <insert id="insertBom1">
+        INSERT INTO BOM
+            (BOM_ID
+            , PRODUCT_ID
+            , MATERIAL_ID
+            , LOT_ID
+            , BOM_PROD_QUANTITY
+            , QUANTITY_UNITS
+            )
         VALUES (
-                '갈비탕',
-                '국/탕/찌개',
-                '2인',
-                '9800'
+            (SELECT DISTINCT b.BOM_ID as bomId
+                FROM BOM b
+                WHERE b.PRODUCT_ID =
+                (
+                SELECT fp.product_id as prodId
+                FROM FINISHED_PRODUCT fp
+                WHERE fp.PRODUCT_NM = #{prodNm}
+                AND fp.PRODUCT_SPEC = #{prodSpec}
+                )
+            )
+            , (
+            SELECT fp.product_id as prodId
+                FROM FINISHED_PRODUCT fp
+                WHERE fp.PRODUCT_NM = #{prodNm}
+                AND fp.PRODUCT_SPEC = #{prodSpec}
+            )
+            , (
+            SELECT m.MATERIAL_ID as matId
+                FROM MATERIAL m
+                WHERE m.MATERIAL_NM = #{matNm}
+            )
+            , (
+            SELECT i.LOT_ID as lotId
+                FROM INSTRUCTION i
+                WHERE i.PRODUCT_ID =
+                    (
+                    SELECT fp.product_id as prodId
+                    FROM FINISHED_PRODUCT fp
+                    WHERE fp.PRODUCT_NM = #{prodNm}
+                    AND fp.PRODUCT_SPEC = #{prodSpec}
+                    )
+            )
+            , #{bomProdQuantity} * (SELECT i.LOT_SIZE as lotSize
+                    FROM INSTRUCTION i
+                    WHERE i.PRODUCT_ID =
+                    (
+                    SELECT fp.product_id as prodId
+                        FROM FINISHED_PRODUCT fp
+                        WHERE fp.PRODUCT_NM = #{prodNm}
+                        AND fp.PRODUCT_SPEC = #{prodSpec}
+                        )
+            )
+            , #{quantityUnits}
+            )
+    </insert>
+    <!-- 5-2. 기존에 BOM이 없는 경우(원래 없던 제품이고, 새로 등록할 때.) -->
+    <insert id="insertBom2">
+        INSERT INTO BOM
+            (PRODUCT_ID
+            , MATERIAL_ID
+            , LOT_ID
+            , BOM_PROD_QUANTITY
+            , QUANTITY_UNITS
+            )
+        VALUES (
+            (
+            SELECT fp.product_id as prodId
+            FROM FINISHED_PRODUCT fp
+            WHERE fp.PRODUCT_NM = #{prodNm}
+            AND fp.PRODUCT_SPEC = #{prodSpec}
+            )
+            , (
+            SELECT m.MATERIAL_ID as matId
+            FROM MATERIAL m
+            WHERE m.MATERIAL_NM = #{matNm}
+            )
+            , (
+            SELECT i.LOT_ID as lotId
+            FROM INSTRUCTION i
+            WHERE i.PRODUCT_ID =
+            (
+            SELECT fp.product_id as prodId
+            FROM FINISHED_PRODUCT fp
+            WHERE fp.PRODUCT_NM = #{prodNm}
+            AND fp.PRODUCT_SPEC = #{prodSpec}
+            )
+            )
+            , #{bomProdQuantity} * (SELECT i.LOT_SIZE as lotSize
+            FROM INSTRUCTION i
+            WHERE i.PRODUCT_ID =
+            (
+            SELECT fp.product_id as prodId
+            FROM FINISHED_PRODUCT fp
+            WHERE fp.PRODUCT_NM = #{prodNm}
+            AND fp.PRODUCT_SPEC = #{prodSpec}
+            )
+            )
+            , #{quantityUnits}
             )
     </insert>
 

@@ -1,13 +1,16 @@
 package org.mealkitspringboot.controller;
 
 import lombok.extern.log4j.Log4j;
+import org.mealkitspringboot.domain.BomInsertDto;
 import org.mealkitspringboot.domain.BomListDto;
 import org.mealkitspringboot.domain.BomModifyDto;
 import org.mealkitspringboot.domain.CriteriaDto;
 import org.mealkitspringboot.service.BomService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
@@ -18,8 +21,10 @@ import java.util.List;
 @Log4j
 @RequestMapping("/bom/")
 public class BomController {
+    @Autowired
     private final BomService bomService;
 
+    @Autowired
     public BomController(BomService bomService) {
         this.bomService = bomService;
     }
@@ -93,16 +98,18 @@ public class BomController {
     }
     /**
      * 게시물 등록
-     * @param bomListDto
-     * @param rttr
-     * @return
      */
     @PostMapping("/registerBom")
-    public String registerBom(BomListDto bomListDto, RedirectAttributes rttr) {
-        log.info("register: " + bomListDto);
+    public String registerBom(@ModelAttribute BomInsertDto bomInsertDto, RedirectAttributes rttr) {
+        log.info("registerBom: " + bomInsertDto);
 
-        bomService.registerBom(bomListDto);     // 실제 BOM 입력
-        rttr.addFlashAttribute("result", bomListDto.getBomId());
+        try{
+            bomService.registerBom(bomInsertDto);
+            rttr.addFlashAttribute("result", "success");
+        } catch (Exception e) {
+            log.error("Failed to register BOM", e);
+            rttr.addFlashAttribute("result", "error");
+        }
 
         return "redirect:/bom/getBomList";
     }

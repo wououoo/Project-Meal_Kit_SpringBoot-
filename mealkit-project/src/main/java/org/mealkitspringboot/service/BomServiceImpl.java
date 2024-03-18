@@ -1,10 +1,7 @@
 package org.mealkitspringboot.service;
 
 import lombok.extern.log4j.Log4j;
-import org.mealkitspringboot.domain.BomDeleteDto;
-import org.mealkitspringboot.domain.BomListDto;
-import org.mealkitspringboot.domain.BomModifyDto;
-import org.mealkitspringboot.domain.CriteriaDto;
+import org.mealkitspringboot.domain.*;
 import org.mealkitspringboot.mapper.BomMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,26 +44,6 @@ public class BomServiceImpl implements BomService {
         return bomMapper.getList(cri);
     }
 
-    /* BOM 등록 서비스 */
-    @Override
-    @Transactional
-    public int registerBom(BomListDto bomListDto) {
-        log.info("register......" + bomListDto);
-
-        // 1. 제품정보 처리
-        // if product id 있으면 skip 없으면 insert 처리
-        //bomMapper.insert(bomListVo)
-
-        // 2. 재료정보 처리
-        // if material id 있으면 skip 없으면 insert 처리
-        // bomMapper.insert(bomListVo)
-
-        // 3.
-        // bomMapper.insert(bomListVo)
-
-        return bomMapper.insert(bomListDto);
-    }
-
     /* BOM 수정 서비스 */
     @Override
     public boolean modify(BomModifyDto bomModifyDto) {
@@ -96,4 +73,49 @@ public class BomServiceImpl implements BomService {
     public int getCurrVal() {
         return bomMapper.readCurrval();
     }*/
+
+    /* BOM 등록 서비스 */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void registerBom(BomInsertDto bomInsertDto) throws Exception {
+        log.info("register......" + bomInsertDto);
+
+        // 1. 제품 및 재료 정보가 이미 존재하는지 확인
+
+        // 제품 조회
+        BomInsertDto existingProduct = bomMapper.selectProd(bomInsertDto);
+        if (existingProduct == null) {
+            // 제품이 존재하지 않는 경우, 새로 등록
+            bomMapper.insertProd(bomInsertDto);
+        }
+
+        // 재료 조회
+        BomInsertDto existingMaterial = bomMapper.selectMat(bomInsertDto);
+        if(existingMaterial == null) {
+            // 재료가 존재하지 않는 경우, 새로 등록
+            bomMapper.insertMat(bomInsertDto);
+        }
+
+        // 2. 공급 업체 정보 등록
+        bomMapper.insertSup(bomInsertDto);
+
+        // 3. LOT_ID 조회 및 등록
+        BomInsertDto lotInfo = bomMapper.selectLot(bomInsertDto);
+        if(lotInfo == null) {
+            // LOT_ID가 존재하지 않는 경우, 새로 등록
+            bomMapper.insertLot(bomInsertDto);
+        }
+
+        // 4. BOM_ID 조회 및 등록
+        BomInsertDto bomInfo = bomMapper.selectBomId(bomInsertDto);
+        if(bomInfo != null) {
+            // 기존에 BOM_ID가 있는 경우
+            bomInsertDto.setBomId(bomInfo.getBomId());
+            bomMapper.insertBom1(bomInsertDto);
+        } else {
+            // 기존에 BOM_ID가 없는 경우
+            bomMapper.insertBom2(bomInsertDto);
+        }
+
+    }
 }

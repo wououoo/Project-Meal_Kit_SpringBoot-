@@ -21,7 +21,4 @@ public class BomListDto {
 	private String quantityUnits;
 	private Long bomProdQuantity;
 
-
-
-	/* BOM 옵션으로 검색 */
 }

@@ -64,46 +64,46 @@ const supDataArray = [];
 /* "다음" 버튼 클릭 시 실행되는 함수 */
 formSubmitBtn.addEventListener("click", function(event){
   event.preventDefault();	// 기본 동작 방지
-  
+
   // 현재 활성화된 메뉴에 따라 작동여부 설정
   if(stepMenus[0].classList.contains('active')) {
 		// 빈 입력칸이 있으면 이동 불가능
-		if(!$('#inputProdNm').val()) {		// 제품명 관련 dom
+		if(!$('#prodNm').val()) {		// 제품명 관련 dom
 			alert('제품명을 입력하세요.');
-			$('#inputProdNm').focus();
+			$('#prodNm').focus();
 			
 			return;
 		}
-		if(!$('#inputProdDiv').val()) {		// 제품종류 관련 dom
+		if(!$('#prodDiv').val()) {		// 제품종류 관련 dom
 			alert('제품 종류를 입력하세요.');
-			$('#inputProdDiv').focus();
+			$('#prodDiv').focus();
 			
 			return;
 		}
-		if(!$('#inputProdSpec').val()) {		// 제품규격 관련 dom
+		if(!$('#prodSpec').val()) {		// 제품규격 관련 dom
 			alert('제품 규격을 입력하세요.');
-			$('#inputProdSpec').focus();
+			$('#prodSpec').focus();
 			
 			return;
 		}
-		if(!$('#inputProdPrice').val()) {		// 제품가격 관련 dom
+		if(!$('#prodPrice').val()) {		// 제품가격 관련 dom
 			alert('제품 가격을 입력하세요.');
-			$('#inputProdPrice').focus();
+			$('#prodPrice').focus();
 			
 			return;
 		}
 		// 입력된 가격이 숫자가 아닌 경우 알림창 표시
-		if (!/^\d+$/.test( $('#inputProdPrice').val() )) {
+		if (!/^\d+$/.test( $('#prodPrice').val() )) {
       alert('제품 가격은 숫자만 입력하세요.');
       return;
     }
     
     // 1단계에서 저장할 데이터
     const prodData = {
-      prodNm: $('#inputProdNm').val(),
-      prodDiv: $('#inputProdDiv').val(),
-      prodSpec: $('#inputProdSpec').val(),
-      prodPrice: $('#inputProdPrice').val()
+      prodNm: $('#prodNm').val(),
+      prodDiv: $('#prodDiv').val(),
+      prodSpec: $('#prodSpec').val(),
+      prodPrice: $('#prodPrice').val()
     };
     prodDataArray.push(prodData);
     console.log('1단계 데이터:', prodData);
@@ -115,10 +115,10 @@ formSubmitBtn.addEventListener("click", function(event){
     removeModalTrigger();			// "모달 트리거" 제거
     // 1단계에서 저장한 제품 데이터를 2단계에서 조회
 		console.log('2단계로 넘어간 1단계 데이터:', prodData);
-    $("#watchProdNm").val(prodDataArray[0].prodNm);
-    $("#watchProdDiv").val(prodDataArray[0].prodDiv);
-    $("#watchProdSpec").val(prodDataArray[0].prodSpec);
-    $("#watchProdPrice").val(formatPrice(prodDataArray[0].prodPrice));
+    $("#prodNm").val(prodDataArray[0].prodNm);
+    $("#prodDiv").val(prodDataArray[0].prodDiv);
+    $("#prodSpec").val(prodDataArray[0].prodSpec);
+    $("#prodPrice").val(formatPrice(prodDataArray[0].prodPrice));
   } else if(stepMenus[1].classList.contains('active')) {
     if ($('.newMatLists:visible').length === 0) {		// 재료 목록이 없으면 다음 단계로 넘어갈 수 없음
 			alert('재료를 추가해야 합니다.');
@@ -243,24 +243,24 @@ plusMatBtn.addEventListener("click", function (event) {
  
 	// 디버깅
 	// 입력 필드 유효성 검사
-  if (!$('#inputMatNm').val() || 
-      !$('#inputMatDiv').val() || 
-      !$('#inputMatQuantityForBom').val() || 
-      !$('#inputMatUnitsForBom').val() || 
-      !/^\d+(\.\d{1,2})?$/.test($('#inputMatQuantityForBom').val())) {
+  if (!$('#matNm').val() ||
+      !$('#matDiv').val() ||
+      !$('#bomProdQuantity').val() ||
+      !$('#quantityUnits').val() ||
+      !/^\d+(\.\d{1,2})?$/.test($('#bomProdQuantity').val())) {
     // 유효성 검사 실패 시 알림 표시
-    if (!$('#inputMatNm').val()) {
+    if (!$('#matNm').val()) {
       alert('재료명을 입력하세요.');
-      $('#inputMatNm').focus();
-    } else if (!$('#inputMatDiv').val()) {
+      $('#matNm').focus();
+    } else if (!$('#matDiv').val()) {
       alert('재료 종류를 입력하세요.');
-      $('#inputMatDiv').focus();
-    } else if (!$('#inputMatQuantityForBom').val()) {
+      $('#matDiv').focus();
+    } else if (!$('#bomProdQuantity').val()) {
       alert('제품 1개를 생산하는데 필요한 수량을 입력하세요.');
-      $('#inputMatQuantityForBom').focus();
-    } else if (!$('#inputMatUnitsForBom').val()) {
+      $('#bomProdQuantity').focus();
+    } else if (!$('#bomProdQuantity').val()) {
       alert('단위를 입력하세요.');
-      $('#inputMatUnitsForBom').focus();
+      $('#quantityUnits').focus();
     } else {
       alert('재료 수량은 정수 또는 소수점 둘째 자리까지 입력 가능합니다.');
     }
@@ -305,27 +305,27 @@ plusSupBtn.addEventListener("click", function (event) {
   
 	// 디버깅
 	// 입력 필드 유효성 검사
-  if (!$('#inputSupNm').val() || 
-      !$('#inputSupContact').val() || 
-      !$('#inputSubEmail').val() || 
-      !$('#inputSupAddress').val() || 
-      !$('#inputSalesMatList').val()) {
+  if (!$('#supNm').val() ||
+      !$('#supContact').val() ||
+      !$('#supEmail').val() ||
+      !$('#supAddress').val() ||
+      !$('#supSell').val()) {
     // 유효성 검사 실패 시 알림 표시
-    if (!$('#inputSupNm').val()) {
+    if (!$('#supNm').val()) {
       alert('업체명을 입력하세요.');
-      $('#inputSupNm').focus();
-    } else if (!$('#inputSupContact').val()) {
+      $('#supNm').focus();
+    } else if (!$('#supContact').val()) {
       alert('연락처를 입력하세요.');
-      $('#inputSupContact').focus();
-    } else if (!$('#inputSubEmail').val()) {
+      $('#supContact').focus();
+    } else if (!$('#supEmail').val()) {
       alert('이메일을 입력하세요.');
-      $('#inputSubEmail').focus();
-    } else if (!$('#inputSupAddress').val()) {
+      $('#supEmail').focus();
+    } else if (!$('#supAddress').val()) {
       alert('주소를 입력하세요.');
-      $('#inputSupAddress').focus();
-    } else if (!$('#inputSalesMatList').val()) {
+      $('#supAddress').focus();
+    } else if (!$('#supSell').val()) {
       alert('판매목록을 입력하세요.');
-      $('#inputSalesMatList').focus();
+      $('#supSell').focus();
     }
     return;
   }
@@ -343,10 +343,10 @@ plusSupBtn.addEventListener("click", function (event) {
 function showNewMatList() {
 	// 2단계에서 저장할 데이터
 	matData = {
-		matNm: $('#inputMatNm').val(),
-		matDiv: $('#inputMatDiv').val(),
-		matQuantity: $('#inputMatQuantityForBom').val(),
-		matUnits: $('#inputMatUnitsForBom').val()
+		matNm: $('#matNm').val(),
+		matDiv: $('#matDiv').val(),
+		matQuantity: $('#bomProdQuantity').val(),
+		matUnits: $('#quantityUnits').val()
 	};
 	// 재료 데이터 배열에 추가
 	matDataArray.push(matData);
@@ -363,10 +363,10 @@ function showNewMatList() {
   matTableBody.append(newMatRow);
   
   // 입력칸 값 초기화
-  $('#inputMatNm').val('');
-  $('#inputMatDiv').val('');
-  $('#inputMatQuantityForBom').val('');
-  $('#inputMatUnitsForBom').val('');
+  $('#matNm').val('');
+  $('#matDiv').val('');
+  $('#bomProdQuantity').val('');
+  $('#quantityUnits').val('');
   
   console.log('2단계 데이터:', matData);
   
@@ -380,11 +380,11 @@ function showNewMatList() {
 /* [업체추가] - 모달의 [확인] 버튼 클릭 시, 실행하는 함수 */
 function showNewSupList() {
 	supData = {
-		supNm: $('#inputSupNm').val(),
-		supContact: $('#inputSupContact').val(),
-		supEmail: $('#inputSubEmail').val(),
-		supAddress: $('#inputSupAddress').val(),
-		supMatLists: $('#inputSalesMatList').val()
+		supNm: $('#supNm').val(),
+		supContact: $('#supContact').val(),
+		supEmail: $('#supEmail').val(),
+		supAddress: $('#supAddress').val(),
+		supMatLists: $('#supSell').val()
 	};
 	// 업체 데이터 배열에 추가
 	supDataArray.push(supData);
@@ -402,11 +402,11 @@ function showNewSupList() {
 	supTableBody.append(newSupRow);
 	
 	// 입력칸 값 초기화
-  $('#inputSupNm').val('');
-  $('#inputSupContact').val('');
-  $('#inputSubEmail').val('');
-  $('#inputSupAddress').val('');
-  $('#inputSalesMatList').val('');
+  $('#supNm').val('');
+  $('#supContact').val('');
+  $('#supEmail').val('');
+  $('#supAddress').val('');
+  $('#supSell').val('');
 	
 	console.log('3단계 데이터:', supData);
 	
