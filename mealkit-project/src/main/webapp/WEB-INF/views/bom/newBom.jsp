@@ -94,56 +94,22 @@
         	<!-- 입력한 제품 정보 확인하면서 재료 등록 -->
         	<div class="watchProdInfo">
 	        	<div class="watchProdInfo infoTitle">입력한 제품 정보</div>
-	        	<div class="formbold-input-flex">
-	        	 <div>
-	        	 	<label for="prodNm" class="formbold-form-label">제품명</label>
-	        	 	<input
-	        	 		type="text"
-	        	 		name="prodNm"
-	        	 		placeholder="제품명"
-	        	 		id="prodNm"
-	        	 		class="formbold-form-input"
-	        	 		value="<c:out value = '${bomInsertDto.prodPrice}' />"
-	        	 		readonly
-	        	 	/>
-	        	 </div>
-	        	 <div>
-	        	 	<label for="prodDiv" class="formbold-form-label">제품 종류</label>
-	        	 	<input
-	        	 		type="text"
-	        	 		name="prodDiv"
-	        	 		placeholder="국/탕/찌개"
-	        	 		id="prodDiv"
-	        	 		class="formbold-form-input"
-	        	 		value="<c:out value = '${bomInsertDto.prodPrice}' />"
-	        	 		readonly
-	        	 	/>
-	        	 </div>
-	        	 <div>
-	        	 	<label for="prodSpec" class="formbold-form-label">제품 규격</label>
-	        	 	<input
-	        	 		type="text"
-	        	 		name="prodSpec"
-	        	 		placeholder="2인"
-	        	 		id="prodSpec"
-	        	 		class="formbold-form-input"
-	        	 		value="<c:out value = '${bomInsertDto.prodPrice}' />"
-	        	 		readonly
-	        	 	/>
-	        	 </div>
-	        	 <div>
-	        	 	<label for="prodPrice" class="formbold-form-label">제품 가격</label>
-	        	 	<input
-	        	 		type="text"
-	        	 		name="prodPrice"
-	        	 		placeholder="8,900원"
-	        	 		id="prodPrice"
-	        	 		class="formbold-form-input"
-	        	 		value="<c:out value = '${bomInsertDto.prodPrice}' />"
-	        	 		readonly
-	        	 	/>
-	        	 </div>
-	        	</div>
+	        	<table class="table prodTable">
+						  <thead>
+						    <tr>
+						      <th scope="col">제품명</th>
+						      <th scope="col">제품 종류</th>
+						      <th scope="col">제품 규격</th>
+						      <th scope="col">제품 가격</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <!-- 입력한 데이터 추가 -->
+						    
+						    
+						  </tbody>
+						</table>
+	        	
 	        </div>
 	        
 	        <!-- 재료 목록 -->
@@ -175,7 +141,7 @@
 		              <label for="matNm" class="formbold-form-label"> 재료명 </label>
 		              <input
 			              type="text"
-			              name="matNm"
+			              name="show_matNm"
 			              placeholder="밀키트에 들어가는 재료명"
 			              id="matNm"
 			              class="formbold-form-input"
@@ -228,7 +194,7 @@
         	<!-- 재료 목록 -->
 	        <div class="newMatLists">
 	       		<div class="MatListTitle">재료 목록</div>
-	       		<table class="table matTable">
+	       		<table class="table newMatTable">
 						  <thead>
 						    <tr>
 						      <th scope="col">#</th>
@@ -399,7 +365,7 @@
 						</span>
           </button>
           
-          <!-- 재료 추가 확인용 모달 -->
+          <!-- 업체 추가 확인용 모달 -->
           <!-- Modal -->
 					<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 					  <div class="modal-dialog">

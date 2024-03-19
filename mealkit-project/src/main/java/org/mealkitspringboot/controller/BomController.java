@@ -99,6 +99,8 @@ public class BomController {
     /**
      * 게시물 등록
      */
+
+    // @RequestMapping(value = "/registerBom", method = {RequestMethod.GET, RequestMethod.POST})
     @PostMapping("/registerBom")
     public String registerBom(@ModelAttribute BomInsertDto bomInsertDto, RedirectAttributes rttr) {
         log.info("registerBom: " + bomInsertDto);

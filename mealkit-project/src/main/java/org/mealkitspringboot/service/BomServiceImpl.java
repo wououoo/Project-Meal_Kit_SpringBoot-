@@ -61,6 +61,8 @@ public class BomServiceImpl implements BomService {
         bomVo.setBomId(bomId);
         bomVo.setMatId(matId);
         return bomMapper.delete(bomVo) == 1;
+        // 정상적인 수정/삭제가 이루어지면 1이라는 값이 반환되므로,
+        // '==' 연산자를 이용하여 true/false를 처리할 수 있다.
     }
 
 

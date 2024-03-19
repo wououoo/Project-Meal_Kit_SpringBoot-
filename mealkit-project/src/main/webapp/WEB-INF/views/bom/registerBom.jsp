@@ -20,7 +20,6 @@
   <!-- Google 나눔고딕 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
 
 	<!-- Google material 아이콘 -->
   <!-- 아이콘을 이미지가 아닌, 폰트처럼 사용 가능함 -->
