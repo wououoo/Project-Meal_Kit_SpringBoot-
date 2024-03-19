@@ -16,3 +16,7 @@ li.cInfo {
 	display: inline-block;
 	margin: 0 30px;
 }
+
+ul.company_info{
+    padding: 10px;
+}
