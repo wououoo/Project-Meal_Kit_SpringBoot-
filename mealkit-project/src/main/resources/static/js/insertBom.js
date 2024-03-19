@@ -28,12 +28,16 @@ const newSupConfirmBtn = document.querySelector('.newSupplierConfirm');	// 업�
 const allConfirmBtn = document.querySelector('.allConfirmBtn');					// 동의 버튼
 const allDenyBtn = document.querySelector('.allDenyBtn');								// 비동의 버튼
 
+/* Form */
+const form = document.querySelector('form');	// 모든 내용을 담아서 'POST"로 컨트롤러에 보낼 form
+
 /* 처음에는 [뒤로가기], [재료추가], [업체추가], 재료목록, 업체목록 숨기기 */
 $(formBackBtn).hide();			// [뒤로가기] 버튼 비활성화
 $(plusMatBtn).hide();				// [재료추가] 버튼 비활성화
 $(plusSupBtn).hide();				// [업체추가] 버튼 비활성화
 $('.newMatLists').hide();		// 재료 추가 전에는 비활성화
 $('.newSupLists').hide();		// 업체 추가 전에는 비활성화
+$('.watchProdInfo').hide();	// 제품 정보 비활성화
 
 /* 각 단계를 활성화시키는 함수 */
 function activateStep(currentIndex, nextIndex) {
@@ -52,6 +56,8 @@ allDenyBtn.addEventListener("click", preventDefaultOnClick);
 
 /* 저장할 데이터 배열 생성 */
 const prodDataArray = [];
+	let prodTableBody;
+	let newprodRow;
 const matDataArray = [];
 	let matData;
 	let matTableBody;
@@ -68,65 +74,84 @@ formSubmitBtn.addEventListener("click", function(event){
   // 현재 활성화된 메뉴에 따라 작동여부 설정
   if(stepMenus[0].classList.contains('active')) {
 		// 빈 입력칸이 있으면 이동 불가능
-		if(!$('#inputProdNm').val()) {		// 제품명 관련 dom
+		if(!$('#prodNm').val()) {		// 제품명 관련 dom
 			alert('제품명을 입력하세요.');
-			$('#inputProdNm').focus();
+			$('#prodNm').focus();
 			
 			return;
 		}
-		if(!$('#inputProdDiv').val()) {		// 제품종류 관련 dom
+		if(!$('#prodDiv').val()) {		// 제품종류 관련 dom
 			alert('제품 종류를 입력하세요.');
-			$('#inputProdDiv').focus();
+			$('#prodDiv').focus();
 			
 			return;
 		}
-		if(!$('#inputProdSpec').val()) {		// 제품규격 관련 dom
+		if(!$('#prodSpec').val()) {		// 제품규격 관련 dom
 			alert('제품 규격을 입력하세요.');
-			$('#inputProdSpec').focus();
+			$('#prodSpec').focus();
 			
 			return;
 		}
-		if(!$('#inputProdPrice').val()) {		// 제품가격 관련 dom
+		if(!$('#prodPrice').val()) {		// 제품가격 관련 dom
 			alert('제품 가격을 입력하세요.');
-			$('#inputProdPrice').focus();
+			$('#prodPrice').focus();
 			
 			return;
 		}
 		// 입력된 가격이 숫자가 아닌 경우 알림창 표시
-		if (!/^\d+$/.test( $('#inputProdPrice').val() )) {
+		if (!/^\d+$/.test( $('#prodPrice').val() )) {
       alert('제품 가격은 숫자만 입력하세요.');
       return;
     }
     
-    // 1단계에서 저장할 데이터
+    // 입력된 가격을 숫자(Long) 형태로 변환하여 저장
+		const prodPrice = parseInt($('#prodPrice').val().replace(/[^0-9]/g, ''));
+		
+		// 1단계에서 저장할 데이터
     const prodData = {
-      prodNm: $('#inputProdNm').val(),
-      prodDiv: $('#inputProdDiv').val(),
-      prodSpec: $('#inputProdSpec').val(),
-      prodPrice: $('#inputProdPrice').val()
+      prodNm: $('#prodNm').val(),
+      prodDiv: $('#prodDiv').val(),
+      prodSpec: $('#prodSpec').val(),
+      prodPrice: prodPrice
     };
+    // 제품 데이터 배열에 추가
     prodDataArray.push(prodData);
     console.log('1단계 데이터:', prodData);
     
     // 첫 번째 단계에서 두 번째 단계로 이동
     activateStep(0, 1);
-    $(formBackBtn).show();		// "뒤로 가기" 버튼 활성화
-    $(plusMatBtn).show();			// "재료 추가" 버튼 활성화
-    removeModalTrigger();			// "모달 트리거" 제거
+    $(formBackBtn).show();			// "뒤로 가기" 버튼 활성화
+    $(plusMatBtn).show();				// "재료 추가" 버튼 활성화
+    $('.watchProdInfo').show();	// "제품 정보" 활성화
+    removeModalTrigger();				// "모달 트리거" 제거
+    // 두 번째 단계에서 제품 정보 조회 시 가격 형식 변환 적용
+		$("#prodPrice").val(formatPrice(prodDataArray[0].prodPrice));
     // 1단계에서 저장한 제품 데이터를 2단계에서 조회
 		console.log('2단계로 넘어간 1단계 데이터:', prodData);
-    $("#watchProdNm").val(prodDataArray[0].prodNm);
-    $("#watchProdDiv").val(prodDataArray[0].prodDiv);
-    $("#watchProdSpec").val(prodDataArray[0].prodSpec);
-    $("#watchProdPrice").val(formatPrice(prodDataArray[0].prodPrice));
+    $("#prodNm").val(prodDataArray[0].prodNm);
+    $("#prodDiv").val(prodDataArray[0].prodDiv);
+    $("#prodSpec").val(prodDataArray[0].prodSpec);
+    $("#prodPrice").val(formatPrice(prodDataArray[0].prodPrice));
+    // 테이블에 입력한 제품 정보 추가
+    prodTableBody = $('.prodTable tbody');
+		newprodRow = `<tr>
+										  <td>${prodDataArray[0].prodNm}</td>
+										  <td>${prodDataArray[0].prodDiv}</td>
+										  <td>${prodDataArray[0].prodSpec}</td>
+										  <td>${formatPrice(prodDataArray[0].prodPrice)}</td>
+  								</tr>`;
+		prodTableBody.append(newprodRow);
+		
   } else if(stepMenus[1].classList.contains('active')) {
     if ($('.newMatLists:visible').length === 0) {		// 재료 목록이 없으면 다음 단계로 넘어갈 수 없음
 			alert('재료를 추가해야 합니다.');
 		} else {
 			// 두 번째 단계에서 세 번째 단계로 이동
+			$("#prodPrice").val(prodDataArray[0].prodPrice);	// 세 번째 단계부터는 가격을 숫자 형태로 표시
 			activateStep(1, 2);
 	    $(plusMatBtn).hide();				// "재료 추가" 버튼 비활성화
 	    $(plusSupBtn).show();				// "업체 추가" 버튼 활성화
+	    $('.watchProdInfo').hide();	// 제품 정보 비활성화
 	    removeModalTrigger2();			// "모달 트리거" 제거
 	    $('.MatListTitle').css({		// form3에서 재료 리스트의 css 변경
 	    	'margin-top': '0',
@@ -136,18 +161,6 @@ formSubmitBtn.addEventListener("click", function(event){
 	    // 전 단계에서 저장한 재료 데이터를 3단계에서 조회
 	    console.log('3단계로 넘어온 1단계 데이터:', prodDataArray);
 	    console.log('3단계로 넘어온 2단계 데이터:', matDataArray);
-	    // 테이블에 새로운 행 추가
-			matTableBody = $('.matTable tbody');
-			for(const mat of matDataArray) {
-				newMatRow = `<tr>
-										  <th scope="row">${matTableBody.children('tr').length + 1}</th>
-										  <td>${mat.matNm}</td>
-										  <td>${mat.matDiv}</td>
-										  <td>${mat.matQuantity}</td>
-										  <td>${mat.matUnits}</td>
-	  								</tr>`;
-		  	matTableBody.append(newMatRow);
-			}
 		}
   } else if(stepMenus[2].classList.contains('active')) {
     // 세 번째 단계에서 네 번째 단계로 이동
@@ -171,7 +184,9 @@ formSubmitBtn.addEventListener("click", function(event){
     if(allDenyBtn.classList.contains('active')) {
 			alert('BOM 등록을 위해 동의해야 합니다.');
 		} else {
-			document.querySelector('form').submit();
+			console.log('matNm', document.getElementById('matNm').value);
+			
+			form.submit();
 		}
   }
 });
@@ -195,17 +210,21 @@ formBackBtn.addEventListener("click", function(event){
 
   // 첫 번째 단계
   if (stepMenus[0].classList.contains('active')) {
-    $(formBackBtn).hide();		// "뒤로 가기" 버튼 비활성화
-    $(plusMatBtn).hide();			// "재료 추가" 버튼 비활성화
-    $('.newMatLists').hide();	// 재료 목록 비활성화
+    $(formBackBtn).hide();			// "뒤로 가기" 버튼 비활성화
+    $(plusMatBtn).hide();				// "재료 추가" 버튼 비활성화
+    $('.newMatLists').hide();		// 재료 목록 비활성화
+    $('.watchProdInfo').hide();	// 제품 정보 비활성화
+    $("#prodPrice").val(prodDataArray[0].prodPrice);		// 가격을 숫자 형태로 표시
   }
   // 두 번째 단계
   if (stepMenus[1].classList.contains('active')) {
-		$(plusMatBtn).show();			// "재료 추가" 버튼 활성화
-		$(plusSupBtn).hide();			// "업체 추가" 버튼 비활성화
-		$('.newMatLists').show();	// 재료 목록 활성화
-		$('.newSupLists').hide();	// 업체 목록 비활성화
-		$('.MatListTitle').css({	// form2에서 재료 리스트의 css 변경
+		$(plusMatBtn).show();				// "재료 추가" 버튼 활성화
+		$(plusSupBtn).hide();				// "업체 추가" 버튼 비활성화
+		$('.watchProdInfo').show();	// 제품 정보 활성화
+		$('.newMatLists').show();		// 재료 목록 활성화
+		$('.newSupLists').hide();		// 업체 목록 비활성화
+		$("#prodPrice").val(formatPrice(prodDataArray[0].prodPrice));		// 두 번째 단계에서 제품 정보 조회 시 가격 형식 변환 적용
+		$('.MatListTitle').css({		// form2에서 재료 리스트의 css 변경
 			'margin-top': '4%',
       'padding-top': '3%',
       'border-top': '1px solid #DDE3EC'
@@ -221,48 +240,38 @@ formBackBtn.addEventListener("click", function(event){
 	}
 });
 
-var i = 0;
+/* 재료 배열 초기화(2단계 => 3단계 => 2단계 => 3단계로 갈 때, 재료가 중복되어 추가되는 현상 때문에 작성!) */
+function clearMatDataArray() {
+	matDataArray.length = 0;
+}
+
 /* [재료추가] 버튼 클릭 시, 실행하는 함수 */
 plusMatBtn.addEventListener("click", function (event) {
   event.preventDefault(); // 기본동작 방지
   
-  //i++;
-  //const test1 = i % 2;
-  
-  /*
-  if(test1 === 0) {
-		$('.modal-backdrop.fade.show').show();
-	  $('#staticBackdrop').addClass("show");
-	  $('#staticBackdrop').show();		
-	} else {
-		$('.modal-backdrop.fade.show').hide();
-	  $('#staticBackdrop').removeClass("show");
-	  $('#staticBackdrop').hide();
-	}
-  */
- 
 	// 디버깅
 	// 입력 필드 유효성 검사
-  if (!$('#inputMatNm').val() || 
-      !$('#inputMatDiv').val() || 
-      !$('#inputMatQuantityForBom').val() || 
-      !$('#inputMatUnitsForBom').val() || 
-      !/^\d+(\.\d{1,2})?$/.test($('#inputMatQuantityForBom').val())) {
+  if (!$('#matNm').val() ||
+      !$('#matDiv').val() ||
+      !$('#bomProdQuantity').val() ||
+      !$('#quantityUnits').val() ||
+      !/^(\d+(\.\d{1,3})?)$/.test($('#bomProdQuantity').val())
+  ) {
     // 유효성 검사 실패 시 알림 표시
-    if (!$('#inputMatNm').val()) {
+    if (!$('#matNm').val()) {
       alert('재료명을 입력하세요.');
-      $('#inputMatNm').focus();
-    } else if (!$('#inputMatDiv').val()) {
+      $('#matNm').focus();
+    } else if (!$('#matDiv').val()) {
       alert('재료 종류를 입력하세요.');
-      $('#inputMatDiv').focus();
-    } else if (!$('#inputMatQuantityForBom').val()) {
+      $('#matDiv').focus();
+    } else if (!$('#bomProdQuantity').val()) {
       alert('제품 1개를 생산하는데 필요한 수량을 입력하세요.');
-      $('#inputMatQuantityForBom').focus();
-    } else if (!$('#inputMatUnitsForBom').val()) {
+      $('#bomProdQuantity').focus();
+    } else if (!$('#bomProdQuantity').val()) {
       alert('단위를 입력하세요.');
-      $('#inputMatUnitsForBom').focus();
+      $('#quantityUnits').focus();
     } else {
-      alert('재료 수량은 정수 또는 소수점 둘째 자리까지 입력 가능합니다.');
+      alert('재료 수량은 정수 또는 소수점 셋째 자리까지 입력 가능합니다.');
     }
     return;
   }
@@ -270,7 +279,7 @@ plusMatBtn.addEventListener("click", function (event) {
   addModalTrigger();
   
   // ★모달 트리거를 추가한 후, showNewMatList()를 호출하여 모달창 확인 없이 그냥 바로 목록을 추가한다.★
-  showNewMatList();
+  // showNewMatList();
   
 });
 
@@ -305,27 +314,27 @@ plusSupBtn.addEventListener("click", function (event) {
   
 	// 디버깅
 	// 입력 필드 유효성 검사
-  if (!$('#inputSupNm').val() || 
-      !$('#inputSupContact').val() || 
-      !$('#inputSubEmail').val() || 
-      !$('#inputSupAddress').val() || 
-      !$('#inputSalesMatList').val()) {
+  if (!$('#supNm').val() ||
+      !$('#supContact').val() ||
+      !$('#supEmail').val() ||
+      !$('#supAddress').val() ||
+      !$('#supSell').val()) {
     // 유효성 검사 실패 시 알림 표시
-    if (!$('#inputSupNm').val()) {
+    if (!$('#supNm').val()) {
       alert('업체명을 입력하세요.');
-      $('#inputSupNm').focus();
-    } else if (!$('#inputSupContact').val()) {
+      $('#supNm').focus();
+    } else if (!$('#supContact').val()) {
       alert('연락처를 입력하세요.');
-      $('#inputSupContact').focus();
-    } else if (!$('#inputSubEmail').val()) {
+      $('#supContact').focus();
+    } else if (!$('#supEmail').val()) {
       alert('이메일을 입력하세요.');
-      $('#inputSubEmail').focus();
-    } else if (!$('#inputSupAddress').val()) {
+      $('#supEmail').focus();
+    } else if (!$('#supAddress').val()) {
       alert('주소를 입력하세요.');
-      $('#inputSupAddress').focus();
-    } else if (!$('#inputSalesMatList').val()) {
+      $('#supAddress').focus();
+    } else if (!$('#supSell').val()) {
       alert('판매목록을 입력하세요.');
-      $('#inputSalesMatList').focus();
+      $('#supSell').focus();
     }
     return;
   }
@@ -333,40 +342,76 @@ plusSupBtn.addEventListener("click", function (event) {
   addModalTrigger2();
   
   // ★모달 트리거를 추가한 후, showNewMatList()를 호출하여 모달창 확인 없이 그냥 바로 목록을 추가한다.★
-  showNewSupList();
+  // showNewSupList();
   
 });
 
 /* ================================= */
 
+var matIndex = 0;
+
 /* [재료추가] - 모달의 [확인] 버튼 클릭 시, 실행하는 함수 */
 function showNewMatList() {
+	
+	// 재료 수량과 단위를 가져옴
+	let quantity = parseFloat($('#bomProdQuantity').val());
+	let unit = $('#quantityUnits').val();
+	
+	// 단위가 'g'인 경우, 'kg'로 변환
+	if (unit.toLowerCase() === 'g') {
+		quantity /= 1000;
+		unit = 'kg';
+	}
+	
+	// 단위가 'ea'인 경우, 대문자로 변환
+	// toLowerCase() : 문자열을 소문자로 변환하는 JavaScript 내장 함수
+	// toUpperCase() : 문자열을 대문자로 변환
+	if(unit.toLowerCase() === 'ea') {
+		unit = unit.toUpperCase();
+	}
+	
+	// 중복 재료 추가 방지를 위해 추가된 재료 목록에서 검사
+	const existingMat = matDataArray.find(mat => mat.matNm === $('#matNm').val());
+	if(existingMat) {
+		alert('이미 추가된 재료입니다.');
+		return;
+	}
+	
 	// 2단계에서 저장할 데이터
 	matData = {
-		matNm: $('#inputMatNm').val(),
-		matDiv: $('#inputMatDiv').val(),
-		matQuantity: $('#inputMatQuantityForBom').val(),
-		matUnits: $('#inputMatUnitsForBom').val()
+		matNm: $('#matNm').val(),
+		matDiv: $('#matDiv').val(),
+		matQuantity: quantity,		// 변환된 수량 저장
+		matUnits: unit
 	};
+	
 	// 재료 데이터 배열에 추가
-	matDataArray.push(matData);
+	if(!existingMat) {
+		matDataArray.push(matData);	
+	}
 	
 	// 테이블에 새로운 행 추가
 	matTableBody = $('.newMatTable tbody');
+	console.log(matTableBody);
   newMatRow = `<tr>
-									  <th scope="row">${matTableBody.children('tr').length + 1}</th>
-									  <td>${matData.matNm}</td>
-									  <td>${matData.matDiv}</td>
-									  <td>${matData.matQuantity}</td>
-									  <td>${matData.matUnits}</td>
-  								</tr>`;
+							  <th scope="row">${matDataArray.length}</th>
+							  <td>${matData.matNm}</td>
+							  <td>${matData.matDiv}</td>
+							  <td>${matData.matQuantity}</td>
+							  <td>${matData.matUnits}</td>
+							</tr>`;
   matTableBody.append(newMatRow);
   
   // 입력칸 값 초기화
-  $('#inputMatNm').val('');
-  $('#inputMatDiv').val('');
-  $('#inputMatQuantityForBom').val('');
-  $('#inputMatUnitsForBom').val('');
+  $('#matNm').val($('#show_matNm').val());
+  //$('#form').append('<input type="hidden" name="matNm' + matIndex + '" id="matNm' + '" value="" />');
+  $('#form').append('<input type="hidden" name="matNm" id="matNm' + matIndex + '" value="" />');
+  $('#show_matNm').val('');
+  matIndex++;  
+  
+  $('#matDiv').val('');
+  $('#bomProdQuantity').val('');
+  $('#quantityUnits').val('');
   
   console.log('2단계 데이터:', matData);
   
@@ -377,22 +422,34 @@ function showNewMatList() {
 	$('.newMatLists').show();
 }
 
-/* [업체추가] - 모달의 [확인] 버튼 클릭 시, 실행하는 함수 */
+
+/* [업체추가] - 모달의 [확인] 버튼 클릭 시, 실행하는 함수====================================== */
 function showNewSupList() {
+	
+	// 중복 업체 추가 방지를 위해 추가된 재료 목록에서 검사
+	const existingSup = supDataArray.find(sup => sup.supNm === $('#supNm').val());
+	if(existingSup) {
+		alert('이미 추가된 업체입니다.');
+		return;
+	}
+	
+	// 3단계에서 저장할 데이터
 	supData = {
-		supNm: $('#inputSupNm').val(),
-		supContact: $('#inputSupContact').val(),
-		supEmail: $('#inputSubEmail').val(),
-		supAddress: $('#inputSupAddress').val(),
-		supMatLists: $('#inputSalesMatList').val()
+		supNm: $('#supNm').val(),
+		supContact: $('#supContact').val(),
+		supEmail: $('#supEmail').val(),
+		supAddress: $('#supAddress').val(),
+		supMatLists: $('#supSell').val()
 	};
+	
+	
 	// 업체 데이터 배열에 추가
 	supDataArray.push(supData);
 	
 	// 테이블에 새로운 행 추가
 	supTableBody = $('.newSupTable tbody');
 	newSupRow = `<tr>
-									  <th scope="row">${supTableBody.children('tr').length + 1}</th>
+									  <th scope="row">${supDataArray.length}</th>
 									  <td>${supData.supNm}</td>
 									  <td>${supData.supContact}</td>
 									  <td>${supData.supEmail}</td>
@@ -402,11 +459,11 @@ function showNewSupList() {
 	supTableBody.append(newSupRow);
 	
 	// 입력칸 값 초기화
-  $('#inputSupNm').val('');
-  $('#inputSupContact').val('');
-  $('#inputSubEmail').val('');
-  $('#inputSupAddress').val('');
-  $('#inputSalesMatList').val('');
+  $('#supNm').val('');
+  $('#supContact').val('');
+  $('#supEmail').val('');
+  $('#supAddress').val('');
+  $('#supSell').val('');
 	
 	console.log('3단계 데이터:', supData);
 	

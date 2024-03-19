@@ -1,54 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="java.util.*" %>
-<%@page import="dto.BomListVo"%>
-<%@page import="java.util.stream.Collectors"%>
-<%@page import="dto.MaterialVo"%>
-<%@page import="java.security.interfaces.RSAKey"%>
-<%@page import="java.sql.PreparedStatement"%>
-<!-- DB와 연결 -->
-<%@ page import="utils.DBManager" %>
-<%@ page import = "java.sql.DriverManager" %>
-<%@ page import = "java.sql.Connection" %>
-<%@ page import = "java.sql.Statement" %>
-<%@ page import = "java.sql.ResultSet" %>
-<%@ page import = "java.lang.Exception, java.sql.SQLException" %>
-
-<!DOCTYPE html>
-<!-- java 연결 -->
-<%@ page import = "dao.*" %>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>밀키트 관리 시스템</title>
-	<!-- 부트스트랩 연결 -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-	<!-- reset.css 연결 -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css">
-	<!-- main.css 연결 -->
-	<link rel="stylesheet" href="./css/main.css" />
-	<!-- google font & google material icon -->
-  <!-- Google 나눔고딕 -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-
-	<!-- Google material 아이콘 -->
-	<!-- 아이콘을 이미지가 아닌, 폰트처럼 사용 가능함 -->
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
-	<!-- jQuery 연결 -->
-	<script defer src="./js/jquery-3.7.1.min.js"></script>
-	
-</head>
-<body>	
-
-	<header>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 		<div class="inner">
 			<!-- 로고 이미지 -->
 			<a href="./index.jsp" class="logo">
-				<img src="./css/images/logo.png" alt="starbucks_logo">
+				<img src="/resources/css/images/logo.png" alt="starbucks_logo">
 			</a>
 			
 			<!-- 위에 있는 서브 메뉴 부분 -->
@@ -56,11 +10,11 @@
 				<ul class="menu">
 					<li>
 						<!-- 마이페이지 링크 연결할 것 -->
-						<a href="./myPage.jsp">My Page</a>	
+						<a href="../users/myPage.jsp">My Page</a>
 					</li>
 					<li>
 						<!-- 로그아웃 링크 연결할 것 -->
-						<a href="./logout.jsp">Log Out</a>
+						<a href="../users/logout.jsp">Log Out</a>
 					</li>
 				</ul>
 			</div>
@@ -139,10 +93,10 @@
                   <h4>BOM</h4>
                   <ul>
                     <li>
-                    	<a href="./BomList.jsp">BOM 현황</a>
+                    	<a href="/bom/getBomList">BOM 현황</a>
                     </li>
                     <li>
-                    	<a href="./bomInsertForm.jsp">BOM 등록</a>
+                    	<a href="./registerBom.jsp">BOM 등록</a>
                     </li>
                   </ul>
                 </li>
@@ -201,4 +155,3 @@
         <% } %> 
 			</ul>
 		</div>
-  </header>
