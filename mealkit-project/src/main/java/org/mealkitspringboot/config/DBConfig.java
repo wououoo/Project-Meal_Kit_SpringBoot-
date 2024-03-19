@@ -16,28 +16,28 @@ import javax.sql.DataSource;
 @ComponentScan(basePackages = "org.mealkitspringboot.service") // 비즈니스 로직(서비스) 사용을 위함
 @MapperScan(basePackages = {"org.mealkitspringboot.mapper"})
 public class DBConfig {
-    @Bean
-    public DataSource dataSource() {
-        HikariConfig hikariConfig = new HikariConfig();
-        hikariConfig.setDriverClassName("net.sf.log4jdbc.sql.jdbcapi.DriverSpy");
-        hikariConfig.setJdbcUrl("jdbc:log4jdbc:oracle:thin:@1.220.247.78:1522:orcl");
-        hikariConfig.setUsername("semi_project1");
-        hikariConfig.setPassword("123451");
+	@Bean
+	public DataSource dataSource() {
+		HikariConfig hikariConfig = new HikariConfig();
+		hikariConfig.setDriverClassName("net.sf.log4jdbc.sql.jdbcapi.DriverSpy");
+		hikariConfig.setJdbcUrl("jdbc:log4jdbc:oracle:thin:@1.220.247.78:1522:orcl");
+		hikariConfig.setUsername("semi_project1");
+		hikariConfig.setPassword("123451");
 
-        hikariConfig.setPoolName("oracle-freebo");
-        hikariConfig.setMaximumPoolSize(5);
+		hikariConfig.setPoolName("oracle-freebo");
+		hikariConfig.setMaximumPoolSize(5);
 
-        HikariDataSource dataSource = new HikariDataSource(hikariConfig);
+		HikariDataSource dataSource = new HikariDataSource(hikariConfig);
 
-        return dataSource;
-    }
+		return dataSource;
+	}
 
-    @Bean
-    public SqlSessionFactory sqlSessionFactory() throws Exception {
-        SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
-        sqlSessionFactory.setDataSource(dataSource());
-        sqlSessionFactory.setMapperLocations(
-                new PathMatchingResourcePatternResolver().getResources("classpath:mybatis/**/*.xml"));
-        return (SqlSessionFactory) sqlSessionFactory.getObject();
-    }
+	@Bean
+	public SqlSessionFactory sqlSessionFactory() throws Exception {
+		SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
+		sqlSessionFactory.setDataSource(dataSource());
+		sqlSessionFactory.setMapperLocations(
+				new PathMatchingResourcePatternResolver().getResources("classpath:mybatis/**/*.xml"));
+		return (SqlSessionFactory) sqlSessionFactory.getObject();
+	}
 }

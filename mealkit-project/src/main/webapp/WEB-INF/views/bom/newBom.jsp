@@ -1,19 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ page import="java.util.*" %>
-
 <!-- newBom.css 연결 -->
-<link href="/resources/css/newBom.css" rel="stylesheet">
-<!-- jQuery 연결 -->
-<script defer src="/resources/js/insertBom.js"></script>
+<link rel="stylesheet" href="./css/newBom.css" />
 
+<script defer src="./js/insertBom.js"></script>
+	
 <div class="formbold-main-wrapper">
   <!-- Author: FormBold Team -->
   <!-- Learn More: https://formbold.com -->
   <div class="formbold-form-wrapper" >
-    <!-- <form action="https://formbold.com/s/FORM_ID" method="POST" onsubmit="return false;"> -->
-    <form action="/bom/registerBom" method="POST" onsubmit="return false;">
+    <form action="https://formbold.com/s/FORM_ID" method="POST" onsubmit="return false;">
         <div class="formbold-steps">
             <ul>
                 <li class="formbold-step-menu1 active">
@@ -40,50 +34,46 @@
         	<div class="inputProdInfo infoTitle">제품 등록</div>
           <div class="formbold-input-flex">
             <div>
-                <label for="prodNm" class="formbold-form-label"> 제품명 </label>
+                <label for="inputProdNm" class="formbold-form-label"> 제품명 </label>
                 <input
                 type="text"
-                name="prodNm"
+                name="inputProdNm"
                 placeholder="밀키트 제품명"
-                id="prodNm"
+                id="inputProdNm"
                 class="formbold-form-input"
-                value="<c:out value = '${bomInsertDto.prodNm}' />"
                 />
             </div>
             <div>
-                <label for="prodDiv" class="formbold-form-label"> 제품 종류 </label>
+                <label for="inputProdDiv" class="formbold-form-label"> 제품 종류 </label>
                 <input
                 type="text"
-                name="prodDiv"
+                name="inputProdDiv"
                 placeholder="국/탕/찌개"
-                id="prodDiv"
+                id="inputProdDiv"
                 class="formbold-form-input"
-                value="<c:out value = '${bomInsertDto.prodDiv}' />"
                 />
             </div>
           </div>
   
           <div class="formbold-input-flex">
               <div>
-              	<label for="prodSpec" class="formbold-form-label">제품 규격</label>
+              	<label for="inputProdSpec" class="formbold-form-label">제품 규격</label>
               	<input
               	type="text"
-              	name="prodSpec"
+              	name="inputProdSpec"
               	placeholder="2인"
-              	id="prodSpec"
+              	id="inputProdSpec"
               	class="formbold-form-input"
-              	value="<c:out value = '${bomInsertDto.prodSpec}' />"
               	/>
               </div>
               <div>
-                  <label for="prodPrice" class="formbold-form-label"> 제품 가격 </label>
+                  <label for="inputProdPrice" class="formbold-form-label"> 제품 가격 </label>
                   <input
-                  type="text"
-                  name="prodPrice"
+                  type="email"
+                  name="inputProdPrice"
                   placeholder="숫자만 입력할 것"
-                  id="prodPrice"
+                  id="inputProdPrice"
                   class="formbold-form-input"
-                  value="<c:out value = '${bomInsertDto.prodPrice}' />"
                   />
               </div>
           </div>
@@ -94,22 +84,52 @@
         	<!-- 입력한 제품 정보 확인하면서 재료 등록 -->
         	<div class="watchProdInfo">
 	        	<div class="watchProdInfo infoTitle">입력한 제품 정보</div>
-	        	<table class="table prodTable">
-						  <thead>
-						    <tr>
-						      <th scope="col">제품명</th>
-						      <th scope="col">제품 종류</th>
-						      <th scope="col">제품 규격</th>
-						      <th scope="col">제품 가격</th>
-						    </tr>
-						  </thead>
-						  <tbody>
-						    <!-- 입력한 데이터 추가 -->
-						    
-						    
-						  </tbody>
-						</table>
-	        	
+	        	<div class="formbold-input-flex">
+	        	 <div>
+	        	 	<label for="watchProdNm" class="formbold-form-label">제품명</label>
+	        	 	<input
+	        	 		type="text"
+	        	 		name="watchProdNm"
+	        	 		placeholder="제품명"
+	        	 		id="watchProdNm"
+	        	 		class="formbold-form-input"
+	        	 		readonly
+	        	 	/>
+	        	 </div>
+	        	 <div>
+	        	 	<label for="watchProdDiv" class="formbold-form-label">제품 종류</label>
+	        	 	<input
+	        	 		type="text"
+	        	 		name="watchProdDiv"
+	        	 		placeholder="국/탕/찌개"
+	        	 		id="watchProdDiv"
+	        	 		class="formbold-form-input"
+	        	 		readonly
+	        	 	/>
+	        	 </div>
+	        	 <div>
+	        	 	<label for="watchProdSpec" class="formbold-form-label">제품 규격</label>
+	        	 	<input
+	        	 		type="text"
+	        	 		name="watchProdSpec"
+	        	 		placeholder="2인"
+	        	 		id="watchProdSpec"
+	        	 		class="formbold-form-input"
+	        	 		readonly
+	        	 	/>
+	        	 </div>
+	        	 <div>
+	        	 	<label for="watchProdPrice" class="formbold-form-label">제품 가격</label>
+	        	 	<input
+	        	 		type="text"
+	        	 		name="watchProdPrice"
+	        	 		placeholder="8,900원"
+	        	 		id="watchProdPrice"
+	        	 		class="formbold-form-input"
+	        	 		readonly
+	        	 	/>
+	        	 </div>
+	        	</div>
 	        </div>
 	        
 	        <!-- 재료 목록 -->
@@ -138,50 +158,46 @@
         		<div class="inputMatInfo infoTitle">재료 등록</div>
 	        	<div class="formbold-input-flex">
 		          <div>
-		              <label for="matNm" class="formbold-form-label"> 재료명 </label>
+		              <label for="inputMatNm" class="formbold-form-label"> 재료명 </label>
 		              <input
 			              type="text"
-			              name="show_matNm"
+			              name="inputMatNm"
 			              placeholder="밀키트에 들어가는 재료명"
-			              id="matNm"
+			              id="inputMatNm"
 			              class="formbold-form-input"
-			              value="<c:out value = '${bomInsertDto.matNm}' />"
 		              />
 		          </div>
 		          <div>
-		              <label for="matDiv" class="formbold-form-label"> 종류 </label>
+		              <label for="inputMatDiv" class="formbold-form-label"> 종류 </label>
 		              <input
 		              type="text"
-		              name="matDiv"
+		              name="inputMatDiv"
 		              placeholder="재료 or 포장재"
-		              id="matDiv"
+		              id="inputMatDiv"
 		              class="formbold-form-input"
-		              value="<c:out value = '${bomInsertDto.matDiv}' />"
 		              />
 		          </div>
 	          </div>
 	          
 	          <div class="formbold-input-flex">
 		          <div>
-		              <label for="bomProdQuantity" class="formbold-form-label"> 수량 </label>
+		              <label for="inputMatQuantityForBom" class="formbold-form-label"> 수량 </label>
 		              <input
 		              type="text"
-		              name="bomProdQuantity"
+		              name="inputMatQuantityForBom"
 		              placeholder="1ea 생산 시 필요한 수량"
-		              id="bomProdQuantity"
+		              id="inputMatQuantityForBom"
 		              class="formbold-form-input"
-		              value="<c:out value = '${bomInsertDto.bomProdQuantity}' />"
 		              />
 		          </div>
 		          <div>
-		              <label for="quantityUnits" class="formbold-form-label"> 단위 </label>
+		              <label for="inputMatUnitsForBom" class="formbold-form-label"> 단위 </label>
 		              <input
 		              type="text"
-		              name="quantityUnits"
+		              name="inputMatUnitsForBom"
 		              placeholder="kg, EA 등"
-		              id="quantityUnits"
+		              id="inputMatUnitsForBom"
 		              class="formbold-form-input"
-		              value="<c:out value = '${bomInsertDto.quantityUnits}' />"
 		              />
 		          </div>
 	          </div>
@@ -194,7 +210,7 @@
         	<!-- 재료 목록 -->
 	        <div class="newMatLists">
 	       		<div class="MatListTitle">재료 목록</div>
-	       		<table class="table newMatTable">
+	       		<table class="table matTable">
 						  <thead>
 						    <tr>
 						      <th scope="col">#</th>
@@ -216,63 +232,58 @@
 		        <div class="inputSupInfo infoTitle">공급업체 등록</div>
 	          <div class="formbold-input-flex">
 	            <div>
-	                <label for="supNm" class="formbold-form-label"> 업체명 </label>
+	                <label for="inputSupNm" class="formbold-form-label"> 업체명 </label>
 	                <input
 	                type="text"
-	                name="supNm"
+	                name="inputSupNm"
 	                placeholder="휴먼교육센터"
-	                id="supNm"
+	                id="inputSupNm"
 	                class="formbold-form-input"
-	                value="<c:out value = '${bomInsertDto.supNm}' />"
 	                />
 	            </div>
 	            <div>
-	                <label for="supContact" class="formbold-form-label"> 연락처 </label>
+	                <label for="inputSupContact" class="formbold-form-label"> 연락처 </label>
 	                <input
 	                type="tel"
-	                name="supContact"
+	                name="inputSupContact"
 	                placeholder="010-0000-0001"
-	                id="supContact"
+	                id="inputSupContact"
 	                class="formbold-form-input"
-	                value="<c:out value = '${bomInsertDto.supContact}' />"
 	                />
 	            </div>
 	          </div>
 	  
 	          <div class="formbold-input-flex">
 		          <div>
-		              <label for="supEmail" class="formbold-form-label"> 이메일 </label>
+		              <label for="inputSubEmail" class="formbold-form-label"> 이메일 </label>
 		              <input
 		              type="email"
-		              name="supEmail"
+		              name="inputSubEmail"
 		              placeholder="smile12@human.co.kr"
-		              id="supEmail"
+		              id="inputSubEmail"
 		              class="formbold-form-input"
-		              value="<c:out value = '${bomInsertDto.supEmail}' />"
 		              />
 		          </div>
 		          <div>
 				         	<label for="inputSupAddress" class="formbold-form-label"> 주소 </label>
 				         	<input
 				         	type="text"
-				         	name="supAddress"
+				         	name="inputSupAddress"
 				         	placeholder="경기도 수원시 xx구 xx로"
-				         	id="supAddress"
+				         	id="inputSupAddress"
 				         	class="formbold-form-input"
-				         	value="<c:out value = '${bomInsertDto.supAddress}' />"
 				         	/>
 		         	</div>
 	          </div>
 	          
 	          <div>
-	            <label for="supSell" class="formbold-form-label"> 판매목록 </label>
+	            <label for="inputSalesMatList" class="formbold-form-label"> 판매목록 </label>
 	            <textarea
 	              rows="6"
-	              name="supSell"
-	              id="supSell"
+	              name="inputSalesMatList"
+	              id="inputSalesMatList"
 	              placeholder="재료1, 재료2, 재료3 ..."
 	              class="formbold-form-input"
-	              value="<c:out value = '${bomInsertDto.supSell}' />"
 	            ></textarea>
 	          </div>
           </div>
@@ -365,7 +376,7 @@
 						</span>
           </button>
           
-          <!-- 업체 추가 확인용 모달 -->
+          <!-- 재료 추가 확인용 모달 -->
           <!-- Modal -->
 					<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 					  <div class="modal-dialog">

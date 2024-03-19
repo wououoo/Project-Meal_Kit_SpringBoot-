@@ -3,7 +3,6 @@
     pageEncoding="UTF-8"%>
 
 <%@ page import="java.util.*" %>
-<%@ page import="utils.DBConfig"%>
 <!-- DB와 연결 -->
 <%@ page import = "java.sql.DriverManager" %>
 <%@ page import = "java.sql.Connection" %>
@@ -22,31 +21,15 @@
 	<link rel="stylesheet" href="./css/main.css" />
 	<link rel="stylesheet" href="./css/mainjo.css" />
 	<link rel="stylesheet" href="./css/noitcejo.css" />
+  </head>
 
-	
-  <!-- footer.css 연결 -->
-  <!-- <link rel="stylesheet" href="./css/footer.css" /> -->
-	
-  <!-- google font & google material icon -->
-  <!-- Google 나눔고딕 -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-	
-	<!-- jQuery 연결 -->
-	<script src="./js/jquery-3.7.1.min.js"></script>
-	
-</head>
- <body>
+<body>
 	<!-- header 공통 부분 연결 -->
-	<%@ include file="header.jsp" %>
+    <%@ include file ="includes/header.jsp" %>
 
 	<!--main -->
 	<!-- 로그인이 안되어 있을때 다시 로그인 창으로 이동 -->
-	<% if(session.getAttribute("empId") == null) { 
-	    response.sendRedirect("login.jsp"); // 로그인 페이지로 리다이렉션
-	}
-	%>
+
 		<!-- 메인에 있는 호버 사진 -->
 	    <article class="photo">
 	        <section>
@@ -76,40 +59,13 @@
 	   <article class="notice_jo">
 	     <div class="notice-section">
          	<div class ="no_img">
- 				<a href="notice.jsp"><img src="https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/add-512.png" alt=""></a>         
+ 				<a href="notice"><img src="https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/add-512.png" alt=""></a>
  		   </div>
-         
-        <% 
-            Connection conn = null;
-            PreparedStatement pstmt = null;
-            ResultSet rs = null;
-
-            try {
-                conn = DBConfig.getConnection();
-                String sql = "SELECT ROWNUM, no_num, emp_nm, title, regdate FROM Notice  WHERE ROWNUM <=3 ORDER BY no_num DESC ";
-                pstmt = conn.prepareStatement(sql);
-                rs = pstmt.executeQuery();
-
-                while(rs.next()) {
-                    String noNum = rs.getString("no_num");
-                    String empNm = rs.getString("emp_nm");
-                    String title = rs.getString("title");
-                    String regdate = rs.getString("regdate").substring(0, 10); 
-        %>
                     <div class="notice-item">
-                        <span class="notice-title"><p>[공지]</p> <%= title %></span>
-                        <span class="notice-date"><p><%= regdate %></p></span>
+                        <span class="notice-title"><p>[공지]</p> </span>
+                        <span class="notice-date"><p></p></span>
                     </div>
-        <% 
-                }
-            } catch(Exception e) {
-                e.printStackTrace();
-            } finally {
-                if(rs != null) try { rs.close(); } catch(Exception e) {}
-                if(pstmt != null) try { pstmt.close(); } catch(Exception e) {}
-                if(conn != null) try { conn.close(); } catch(Exception e) {}
-            }
-        %>
+
     </div>
     
     	<!-- 뉴스 css -->
@@ -142,7 +98,7 @@
 
 		
 	<!-- footer 공통 부분 연결 -->
-	<%@ include file="footer.jsp" %>
+
    
    </body>	
 </html>

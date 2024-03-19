@@ -1,8 +1,7 @@
-<%@page import="utils.DBConfig"%>
 <%@ page import="java.sql.PreparedStatement"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="java.util.*" %>
 <!-- DB와 연결 -->
 <%@ page import = "java.sql.DriverManager" %>
@@ -64,51 +63,10 @@
 	
 </head>
 <body>
-	<!-- header 공통 부분 연결 -->
-	<%@ include file="header.jsp" %>
-	
-	<!-- 로그인이 안되어 있을때 다시 로그인 창으로 이동 -->
-	<% if(session.getAttribute("empId") == null) { 
-    response.sendRedirect("login.jsp"); // 로그인 페이지로 리다이렉션
-	}
-	%>
-	
-	<% 
-	if(session.getAttribute("empId") != null) {
-    String empId = session.getAttribute("empId").toString();
-    Connection conn = null;
-    PreparedStatement pstmt = null;
-    ResultSet rs = null;
-    try {
-        conn = DBConfig.getConnection();
-        String sql = "SELECT EMP_NM, EMP_CONTACT FROM EMPLOYEES WHERE EMP_ID = ?";
-        pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, empId);
-        rs = pstmt.executeQuery();
-        if (rs.next()) {
-            String empNm = rs.getString("EMP_NM");
-            String empContact = rs.getString("EMP_CONTACT");
-            %>
-            <script>
-            $(document).ready(function() {
-                $('input[name="myname"]').val('<%= empNm %>');
-                $('input[name="myid"]').val('<%= empId %>');
-                $('input[name="con_nm"]').val('<%= empContact %>');
-            });
-            </script>
-            <%
-        }
-    } catch (Exception e) {
-        e.printStackTrace();
-    } finally {
-        if (rs != null) try { rs.close(); } catch (SQLException ex) {}
-        if (pstmt != null) try { pstmt.close(); } catch (SQLException ex) {}
-        if (conn != null) try { conn.close(); } catch (SQLException ex) {}
-    }
-}
-%>
+  <!-- header 공통 부분 연결 -->
+    <%@ include file ="../includes/header.jsp" %>
 
-  <form class="mypage" method="post" action="myPagepro.jsp">
+  <form class="mypage" method="post" action="updateUserInfo">
  
   <div class="container">      
     <div class="insert">
@@ -117,33 +75,38 @@
 	
      <table>
 	    <tr>
-	        <td class="col1">이름</td>
-	        <td class="col2"><input type="text" name="myname" placeholder="이름 입력" maxlength="5" required  readonly ></td>
+			<td class="col1">이름</td>
+			<td class="col2"><input type="text" name="empNm" value="${employee.emp_nm}" readonly></td>
+		</tr>
+	    <tr>
+			<td class="col1">아이디</td>
+			<td class="col2"><input type="text" name="empId" value="${employee.emp_id}" readonly></td>
 	    </tr>
 	    <tr>
-	        <td class="col1">아이디</td>
-	        <td class="col2">
-	            <input type="text" name="myid"placeholder="아이디 입력" maxlength="10" required  readonly >
+			<td class="col1">비밀번호</td>
+			<td class="col2"><input type="password" name="empPw" placeholder="비밀번호 입력" required><br></br>
+	            <p style = " font-size:15px; ">※비밀번호는 <span style = " font-size:15px; " class="num"  >문자, 숫자,10 ~ 16자리</span>로 입력이 가능합니다.</p>
 	        </td>
 	    </tr>
 	    <tr>
-	        <td class="col1">비밀번호</td>
-	        <td class="col2">
-	            <input type="password" name="pwd"  placeholder="비밀번호 입력" maxlength="16" required><br></br>
-	            <p>※비밀번호는 <span class="num">문자, 숫자,10 ~ 16자리</span>로 입력이 가능합니다.</p>
-	        </td>
-	    </tr>
-	    <tr>
-	        <td class="col1">전화번호</td>
-	        <td class="col2"><input type="text" name="con_nm"  placeholder="전화번호 입력" maxlength="16" required><br></br>
-	        <p>※전화번호는 <span class="num">'-'</span>를 포함해서 입력하세요.</p>
+			<td class="col1">전화번호</td>
+			<td class="col2"><input type="text" name="empContact" placeholder="전화번호 입력" required><br></br>
+	        <p  style = " font-size:15px; ">※전화번호는 <span  style = " font-size:15px; " class="num">'-'</span>를 포함해서 입력하세요.</p>
 	        </td>
 	    </tr>
 	    <tr> 
 	    </tr>
-    </table> 
-  <div class="create">
-        <input class="but3" type="submit" value="정보수정" onclick="">
+    </table>
+
+		<!-- 성공 메시지 출력 -->
+		<c:if test="${not empty successMessage}">
+			<script>
+				alert('${successMessage}');
+			</script>
+		</c:if>
+
+    <div class="create">
+	  <input class="but3" type="submit" value="정보 수정">
     </div>
   </div>
   </div>
