@@ -17,7 +17,7 @@
     <!-- reset.css 연결 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css">
     <!-- main.css 연결 -->
-    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="/resources/css/main.css" />
 
 </head>
 <body>
@@ -34,7 +34,7 @@
         <div class="inner">
             <!-- 로고 이미지 -->
             <a href="/index" class="logo">
-                <img src="./css/images/logo.png" alt="logo">
+                <img src="/resources/css/images/logo.png" alt="logo">
             </a>
 
             <!-- 위에 있는 서브 메뉴 부분 -->
@@ -163,10 +163,10 @@
                   <h4>Sales order</h4>
                   <ul>
                     <li>
-                    	<a href="/salesOrder_main">주문서 메인</a>
+                    	<a href="/main">주문서 메인</a>
                     </li>
                     <li>
-                    	<a href="/salesOrder_insertForm">주문서 작성</a>
+                    	<a href="/inserter">주문서 작성</a>
                     </li>
                   </ul>
                 </li>
@@ -174,10 +174,10 @@
                   <h4>주문서 조회</h4>
                   <ul>
                     <li>
-                    	<a href="/salesOrder_select">조회화면</a>
+                    	<a href="/selector">조회화면</a>
                     </li>
                     <li>
-                    	<a href="/salesOrder_updateForm">주문서 수정</a>
+                    	<a href="/updater">주문서 수정</a>
                     </li>
                   </ul>
                 </li>
