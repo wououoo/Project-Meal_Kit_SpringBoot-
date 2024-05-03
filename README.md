@@ -61,7 +61,6 @@
           <li>
             비밀번호, 전화번호 수정 시 포맷을 맞추도록 했다. <br>
             <img src="https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/7449c4dd-4328-4408-9483-82ddf8c29686" alt="직원정보수정">
-
           </li>
         </ol>
       </li>
