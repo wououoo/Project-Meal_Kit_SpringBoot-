@@ -13,8 +13,8 @@
 ### 📁프로젝트 구현 내용
   - 제조 회사의 구성원 별 권한 제한 및 프로세스 별 데이터의 CRUD 기능 구현
 ### ⚙️ 개발환경 및 도구
-  - 'JAVA 17'
-  - 'JDK 17.0.2'
+  - `JAVA 17`
+  - `JDK 17.0.2`
   - **IDE**: IntelliJ
   - **Framework**: Springboot
   - **DataBase**: Oracle DB(ojdbc8)
