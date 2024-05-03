@@ -31,7 +31,7 @@
 ### 🧑‍🤝‍🧑 멤버 구성
 |김영범(팀장)|[조다혜(팀원)](https://github.com/ChoDaHye)|우경주(팀원)|[정수하(팀원)](https://github.com/heyJSH)|진재원(팀원)|
 |---|---|---|---|---|
-|ㅇㅇ|<img src="https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/e311d453-aebb-4758-a744-49af4fa63319" width="100">|ㅇㅇ|<img src="https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/8a862690-502f-4eea-912c-74dd2e970756" width="100">|ㅇㅇ|
+|ㅇㅇ|<img src="https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/e311d453-aebb-4758-a744-49af4fa63319" width="100" align="center">|ㅇㅇ|<img src="https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/8a862690-502f-4eea-912c-74dd2e970756" width="100" align="center">|ㅇㅇ|
 |판매관리 - 프로젝트 구성 및 개발 범위 기획, 판매 주문서 CRUD|인사관리 - 메인메뉴, 구성원 관리, 로그인 화면, 공지사항 CRUD|구매관리 - 공급업체 및 원자재 데이터 베이스 작성, 구매 시스템 설계 및 기능 구현|제조관리 - 공유 드라이브/깃허브 관리, 테이블 설계 및 ERD 초안 작성, BOM CRUD|제조관리 - 제조 지시서 CRUD, 제조 수행 CRUD|
 
   - 김영범(팀장): 판매관리 - 프로젝트 구성 및 개발 범위 기획, 판매 주문서 CRUD
