@@ -126,8 +126,7 @@
 <br><br>
 
 ## 🏗️ ERD
-![image](https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/39f139a0-e05b-438f-89f2-c6e867222b52)
-
+![image](https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/bcbfa9be-686b-4970-81d5-977aa1d2e7b5)
 <br><br>
 
 ## ⚠️ 트러블 슈팅
