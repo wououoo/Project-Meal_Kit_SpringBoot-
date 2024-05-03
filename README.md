@@ -126,7 +126,8 @@
 <br><br>
 
 ## 🏗️ ERD
-#### 수정필요!!!!!!!!!!!!!!!
+![image](https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/39f139a0-e05b-438f-89f2-c6e867222b52)
+
 <br><br>
 
 ## ⚠️ 트러블 슈팅
