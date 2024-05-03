@@ -1,5 +1,5 @@
 # Project-Meal_Kit-SpringBoot로 수정
-밀키트 프로젝트(JSP → SpringBoot)
+밀키트 프로젝트(JSP → SpringBoot, maven)
 스프링부트를 이용한, 밀키트 제조업체를 위한 웹 솔루션 개발
 
 ## ⏲️ 프로젝트 개발 기간
@@ -19,13 +19,8 @@
   - **Framework**: Springboot(3.1.10)
   - **DataBase**: Oracle DB(ojdbc8)
   - **ORM**: Mybatis
-### 📖 기술 스택
-#### Fronted
-  - `HTML5`, `CSS3`, `BootStrap`
-#### Backend
-  - `JAVA 17`, `JavaScript`
-#### DataBase
-  - ``
+  - **DevOps**: Maven, Git, GitHub
+  - **Tools**: Discord, GoogleDrive
 ### 🧑‍🤝‍🧑 멤버 구성
   - 김영범(팀장): 판매관리 - 프로젝트 구성 및 개발 범위 기획, 판매 주문서 CRUD
   - 조다혜(팀원): 인사관리 - 메인메뉴, 구성원 관리, 로그인 화면, 공지사항 CRUD
