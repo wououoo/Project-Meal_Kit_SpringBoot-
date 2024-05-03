@@ -111,8 +111,6 @@
                 BOM 현황에서 `BOM 검색 및 조회`, `BOM 수정`, `BOM 삭제`를 할 수 있다.
              </li>
              <img src="https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/3004b0db-c451-4554-989a-df53172963e1" alt="BOM 현황">
-          </ol>
-          <ol>
              <li>
                 <b>BOM 현황 - BOM 검색 및 조회</b>
              </li>
