@@ -80,21 +80,6 @@
 </details>
 
 <details>
-  <summary><b>2. 마이페이지</b> (👈 Click)</summary>
-  <div markdown="1">
-    <ul>
-      <li>'직원이름'과 '직원아이디'는 수정할 수 없다.</li>
-      <li>'비밀번호', '전화번호'는 수정할 수 있다.
-       <li>
-         비밀번호, 전화번호 수정 시 포맷을 맞추도록 했다. <br>
-         <img src="https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/7449c4dd-4328-4408-9483-82ddf8c29686" alt="직원정보수정">
-       </li>
-      </li>
-    </ul>
-  </div>
-</details>
-
-<details>
   <summary><b>3. 공지사항</b> (👈 Click)</summary>
   <div markdown="1">
     <ul>
