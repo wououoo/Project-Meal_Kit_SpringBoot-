@@ -111,10 +111,10 @@
                 BOM 현황에서 [BOM 검색 및 조회], [BOM 수정], [BOM 삭제]를 할 수 있다.
              </li>
              <img src="https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/3004b0db-c451-4554-989a-df53172963e1" alt="BOM 현황">
+             <li>
+                <b>BOM 현황 - BOM 검색 및 조회</b>
+             </li>
              <ol>
-                <li>
-                   <b>BOM 현황 - BOM 검색 및 조회</b>
-                </li>
                 <li>select box의 option을 선택 → 검색 버튼을 누르면 해당하는 목록을 조회할 수 있다.</li>
                 <img src="https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/947e0ed3-c716-4762-970f-bb0945500533" alt="BOM 검색 및 조회">
              </ol>
