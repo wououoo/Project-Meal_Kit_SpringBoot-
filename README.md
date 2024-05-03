@@ -31,7 +31,7 @@
 ### 📌 주요기능
 밀키트를 생산/제조하는 업체에서 자원관리를 위해 사용하는 프로그램을 제공한다.
 <details>
-  <summary>**1. 로그인 & 접근제한**</summary>
+  <summary><b>1. 로그인 & 접근제한</b></summary>
   <div markdown="1">
     
   </div>
