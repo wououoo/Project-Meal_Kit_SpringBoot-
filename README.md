@@ -117,6 +117,7 @@
              <ol>
                 <li>select box의 option을 선택 → 검색 버튼을 누르면 해당하는 목록을 조회할 수 있다.</li>
                 <img src="https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/947e0ed3-c716-4762-970f-bb0945500533" alt="BOM 검색 및 조회">
+                <img src="https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/b39e69fd-7b03-47df-9c63-cbccae2125da" alt="BOM 검색 및 조회">
              </ol>
           </ol>
        </li>
