@@ -6,11 +6,11 @@
     <!-- 제품명 옵션 검색 -->
     <select id="getProdNmList" resultType="org.mealkitspringboot.domain.BomListDto">
         SELECT
-            DISTINCT product_nm as prodNm
+            DISTINCT product_name as prodNm
         FROM
             Finished_Product
         ORDER BY
-            product_nm
+            product_name
     </select>
 
     <!-- 제품 규격 옵션 검색 -->
@@ -26,11 +26,11 @@
     <!-- 재료명 옵션 검색 -->
     <select id="getMatNmList" resultType="org.mealkitspringboot.domain.BomListDto">
         SELECT
-            material_nm as matNm
+            material_name as matNm
         FROM
             material
         ORDER BY
-            material_nm
+            material_name
     </select>
 
     <!-- BOM 현황 - 제품 목록 조회 및 검색 -->
@@ -44,9 +44,9 @@
             T.quantityUnits, T.bomProdQuantity
         FROM (
             SELECT
-                b.BOM_ID as bomId, b.PRODUCT_ID as prodId, fp.PRODUCT_NM as prodNm, fp.PRODUCT_DIV as prodDiv, fp.PRODUCT_SPEC as prodSpec,
+                b.BOM_ID as bomId, b.PRODUCT_ID as prodId, fp.PRODUCT_NAME as prodNm, fp.PRODUCT_DIV as prodDiv, fp.PRODUCT_SPEC as prodSpec,
                 i.LOT_ID as lotId, i.LOT_SIZE as lotSize,
-                m.MATERIAL_CLASSIFICATION as matDiv, b.MATERIAL_ID as matId, m.MATERIAL_NM as matNm,
+                m.MATERIAL_CLASSIFICATION as matDiv, b.MATERIAL_ID as matId, m.MATERIAL_NAME as matNm,
                 b.QUANTITY_UNITS as quantityUnits, b.BOM_PROD_QUANTITY as bomProdQuantity
             FROM
                 BOM b, FINISHED_PRODUCT fp, MATERIAL m, INSTRUCTION i
@@ -56,13 +56,13 @@
                 AND b.LOT_ID = i.LOT_ID
         ]]>
                 <if test="prodNm != null and prodNm != ''">
-                    AND fp.PRODUCT_NM LIKE '%' || #{prodNm} || '%'
+                    AND fp.PRODUCT_NAME LIKE '%' || #{prodNm} || '%'
                 </if>
                 <if test="prodDiv != null and prodDiv != ''">
                     AND fp.PRODUCT_DIV LIKE '%' || #{prodDiv} || '%'
                 </if>
                 <if test="matNm != null and matNm != ''">
-                    AND m.MATERIAL_NM LIKE '%' || #{matNm} || '%'
+                    AND m.MATERIAL_NAME LIKE '%' || #{matNm} || '%'
                 </if>
                 <![CDATA[
             ORDER BY
@@ -79,14 +79,14 @@
         FROM
             FINISHED_PRODUCT fp
         WHERE
-            fp.PRODUCT_NM = #{prodNm}
+            fp.PRODUCT_NAME = #{prodNm}
         AND
             fp.PRODUCT_SPEC = #{prodSpec}
     </select>
     <insert id="insertProd">
         INSERT INTO FINISHED_PRODUCT
             (
-            PRODUCT_NM,
+            PRODUCT_NAME,
             PRODUCT_DIV,
             PRODUCT_SPEC,
             PRODUCT_PRICE
@@ -106,12 +106,12 @@
         FROM
             MATERIAL m
         WHERE
-            m.MATERIAL_NM = #{matNm}
+            m.MATERIAL_NAME = #{matNm}
     </select>
     <insert id="insertMat">
         INSERT INTO MATERIAL
             (
-            MATERIAL_NM,
+            MATERIAL_NAME,
             MATERIAL_CLASSIFICATION
             )
         VALUES
@@ -149,7 +149,7 @@
                 (
                 SELECT fp.product_id as prodId
                 FROM FINISHED_PRODUCT fp
-                WHERE fp.PRODUCT_NM = #{prodNm}
+                WHERE fp.PRODUCT_NAME = #{prodNm}
                 AND fp.PRODUCT_SPEC = #{prodSpec}
                 )
     </select>
@@ -164,7 +164,7 @@
             (
             seq_instruction.nextval
             ,(SELECT fp.PRODUCT_ID as prodId FROM FINISHED_PRODUCT fp
-            WHERE fp.PRODUCT_NM = #{prodNm}
+            WHERE fp.PRODUCT_NAME = #{prodNm}
             AND fp.PRODUCT_SPEC = #{prodSpec})
             , 1000)
     </insert>
@@ -179,7 +179,7 @@
             (
             SELECT fp.product_id as prodId
             FROM FINISHED_PRODUCT fp
-            WHERE fp.PRODUCT_NM = #{prodNm}
+            WHERE fp.PRODUCT_NAME = #{prodNm}
             AND fp.PRODUCT_SPEC = #{prodSpec}
             )
     </select>
@@ -200,20 +200,20 @@
                 (
                 SELECT fp.product_id as prodId
                 FROM FINISHED_PRODUCT fp
-                WHERE fp.PRODUCT_NM = #{prodNm}
+                WHERE fp.PRODUCT_NAME = #{prodNm}
                 AND fp.PRODUCT_SPEC = #{prodSpec}
                 )
             )
             , (
             SELECT fp.product_id as prodId
                 FROM FINISHED_PRODUCT fp
-                WHERE fp.PRODUCT_NM = #{prodNm}
+                WHERE fp.PRODUCT_NAME = #{prodNm}
                 AND fp.PRODUCT_SPEC = #{prodSpec}
             )
             , (
             SELECT m.MATERIAL_ID as matId
                 FROM MATERIAL m
-                WHERE m.MATERIAL_NM = #{matNm}
+                WHERE m.MATERIAL_NAME = #{matNm}
             )
             , (
             SELECT i.LOT_ID as lotId
@@ -222,7 +222,7 @@
                     (
                     SELECT fp.product_id as prodId
                     FROM FINISHED_PRODUCT fp
-                    WHERE fp.PRODUCT_NM = #{prodNm}
+                    WHERE fp.PRODUCT_NAME = #{prodNm}
                     AND fp.PRODUCT_SPEC = #{prodSpec}
                     )
             )
@@ -232,7 +232,7 @@
                     (
                     SELECT fp.product_id as prodId
                         FROM FINISHED_PRODUCT fp
-                        WHERE fp.PRODUCT_NM = #{prodNm}
+                        WHERE fp.PRODUCT_NAME = #{prodNm}
                         AND fp.PRODUCT_SPEC = #{prodSpec}
                         )
             )
@@ -252,13 +252,13 @@
             (
             SELECT fp.product_id as prodId
             FROM FINISHED_PRODUCT fp
-            WHERE fp.PRODUCT_NM = #{prodNm}
+            WHERE fp.PRODUCT_NAME = #{prodNm}
             AND fp.PRODUCT_SPEC = #{prodSpec}
             )
             , (
             SELECT m.MATERIAL_ID as matId
             FROM MATERIAL m
-            WHERE m.MATERIAL_NM = #{matNm}
+            WHERE m.MATERIAL_NAME = #{matNm}
             )
             , (
             SELECT i.LOT_ID as lotId
@@ -267,7 +267,7 @@
             (
             SELECT fp.product_id as prodId
             FROM FINISHED_PRODUCT fp
-            WHERE fp.PRODUCT_NM = #{prodNm}
+            WHERE fp.PRODUCT_NAME = #{prodNm}
             AND fp.PRODUCT_SPEC = #{prodSpec}
             )
             )
@@ -277,7 +277,7 @@
             (
             SELECT fp.product_id as prodId
             FROM FINISHED_PRODUCT fp
-            WHERE fp.PRODUCT_NM = #{prodNm}
+            WHERE fp.PRODUCT_NAME = #{prodNm}
             AND fp.PRODUCT_SPEC = #{prodSpec}
             )
             )
