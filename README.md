@@ -33,7 +33,14 @@
 <details>
   <summary><b>1. 로그인 & 접근제한</b> (👈 Click)</summary>
   <div markdown="1">
-    - 직원 번호가 데이터에 있으면 로그인이 가능하다.
-    - 부서별 접근 가능한 페이지가 다르다.
+    <ul>
+      <li>직원 번호가 데이터에 있으면 로그인이 가능하다.</li>
+      <li>부서별 접근 가능한 페이지가 다르다.</li>
+    </ul>
+    ex1) 생산팀은 로그인 시 `재고현황`, `제조관리`만 보여준다. <br>
+    ![image](https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/83eb1444-d06f-4b7c-a750-cfb08b1dee16)
+    ex2) 관리팀은 모든 페이지에 접근할 수 있다. <br>
+    ![image](https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/959cea75-4ba4-4dae-a43d-f867e1592f66)
+
   </div>
 </details>
