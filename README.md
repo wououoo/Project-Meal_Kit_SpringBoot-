@@ -16,7 +16,7 @@
   - `JAVA 17`
   - `JDK 17.0.2`
   - **IDE**: IntelliJ
-  - **Framework**: Springboot
+  - **Framework**: Springboot(3.1.10)
   - **DataBase**: Oracle DB(ojdbc8)
   - **ORM**: Mybatis
 ### 🧑‍🤝‍🧑 멤버 구성
