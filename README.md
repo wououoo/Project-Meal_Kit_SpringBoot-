@@ -97,6 +97,13 @@
 <details>
   <summary><b>5. 재고현황</b> (👈 Click)</summary>
   <div markdown="1">
+    
+  </div>
+</details>
+
+<details>
+  <summary><b>6. 제조관리 - BOM 관리</b> (👈 Click)</summary>
+  <div markdown="1">
     <ul>
        <li>BOM 현황
           <ol>
@@ -114,13 +121,6 @@
           </ol>
        </li>
     </ul>
-  </div>
-</details>
-
-<details>
-  <summary><b>6. 제조관리 - BOM 관리</b> (👈 Click)</summary>
-  <div markdown="1">
-    
   </div>
 </details>
 
