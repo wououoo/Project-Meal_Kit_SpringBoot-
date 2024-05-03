@@ -82,7 +82,16 @@
 <details>
   <summary><b>3. 공지사항</b> (👈 Click)</summary>
   <div markdown="1">
-    
+    <ul>
+      <li>'공지사항'에서 제목을 검색할 수 있다.</li>
+      <li> title을 누르면 해당 글을 수정할 수 있다.
+        <ol>
+          <li>
+             <img src="https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/151722511/8aa1c6e0-36c0-4665-b32f-3835c3501ef6" alt="공지사항>
+          </li>
+        </ol>
+      </li>
+    </ul>
   </div>
 </details>
 
