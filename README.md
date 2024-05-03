@@ -126,6 +126,7 @@
 <br><br>
 
 ## 🏗️ ERD
+DB와 ERD
 ![image](https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/bcbfa9be-686b-4970-81d5-977aa1d2e7b5)
 <br><br>
 
