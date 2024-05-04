@@ -46,11 +46,12 @@
         <ol>
           <li>
             ex1) 생산팀은 로그인 시 `재고현황`, `제조관리`만 보여준다. <br>
-            <img src="https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/83eb1444-d06f-4b7c-a750-cfb08b1dee16" alt="생산팀 접근가능한 메뉴">
+            ![원자재1](https://github.com/wououoo/Project-Meal_Kit_SpringBoot-/assets/156730657/54d83d40-1dab-4cb8-8cfa-d196e90afb24)
+
           </li>
           <li>
-            ex2) 관리팀은 모든 페이지에 접근할 수 있다. <br>
-            <img src="https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/2c487107-703d-44df-b55d-2712ea79ae70" alt="관리팀 접근가능한 메뉴">
+            ![원자재12](https://github.com/wououoo/Project-Meal_Kit_SpringBoot-/assets/156730657/3f0e3e54-f78c-448a-a61f-69fc7e6f4357)
+
           </li>
         </ol>
       </li>
