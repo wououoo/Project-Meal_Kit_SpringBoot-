@@ -46,7 +46,8 @@
         <ol>
           <li>
             ex1) 생산팀은 로그인 시 `재고현황`, `제조관리`만 보여준다. <br>
-            <src = "https://github.com/wououoo/Project-Meal_Kit_SpringBoot-/assets/156730657/54d83d40-1dab-4cb8-8cfa-d196e90afb24">
+            <img src="[https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/83eb1444-d06f-4b7c-a750-cfb08b1dee16](https://github.com/wououoo/Project-Meal_Kit_SpringBoot-/assets/156730657/54d83d40-1dab-4cb8-8cfa-d196e90afb24)">
+
 
           </li>
           <li>
