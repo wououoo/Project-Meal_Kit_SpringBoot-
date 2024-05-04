@@ -42,20 +42,21 @@
   <div markdown="1">
     <ul>
       <li>.</li>
-      <li>부서별 접근 가능한 페이지가 다르다.
         <ol>
           <li>
-            ex1) 생산팀은 로그인 시 `재고현황`, `제조관리`만 보여준다. <br>
+            ex1) DB에 있는 원자재 정보를 불러오고 insert 와 delete를 수행한다. <br>
             <img src="https://github.com/wououoo/Project-Meal_Kit_SpringBoot-/assets/156730657/54d83d40-1dab-4cb8-8cfa-d196e90afb24">
-
-
           </li>
           <li>
-            ![원자재12](https://github.com/wououoo/Project-Meal_Kit_SpringBoot-/assets/156730657/3f0e3e54-f78c-448a-a61f-69fc7e6f4357)
-
+            ex2) 원자재를 구매할 수 있다. <br>
+            <img src="https://github.com/wououoo/Project-Meal_Kit_SpringBoot-/assets/156730657/3f0e3e54-f78c-448a-a61f-69fc7e6f4357">
+               <ol>
+                 <li>1. 구매할 원자재를 seelct box에서 선택</li>
+                 <li>2. 원자재를 파는 업체목록이 뜨면서 그중 살 업체를 선택.</li>
+                 <li>3. 살 수량을 입력</li>
+             </ol>
           </li>
         </ol>
-      </li>
     </ul>
   </div>
 </details>
@@ -70,15 +71,12 @@
        <li>BOM 현황
           <ol>
              <li>
-                BOM 현황에서 [BOM 검색 및 조회], [BOM 수정], [BOM 삭제]를 할 수 있다.
-             </li>
-             ![원자재1](https://github.com/wououoo/Project-Meal_Kit_SpringBoot-/assets/156730657/724a4045-d2a8-4376-aa9b-9e5982c54fb0)
-             <li>
-                <b>BOM 현황 - BOM 검색 및 조회</b>
+                DB에 있는 업체 정보를 불러오고 insert 와 delete를 수행한다.
+                <img src="https://github.com/wououoo/Project-Meal_Kit_SpringBoot-/assets/156730657/95cdb78e-cbdf-415c-908c-dc8ef35bb932">
+
              </li>
              <ol>
                 <li>select box의 option을 선택 → 검색 버튼을 누르면 해당하는 목록을 조회할 수 있다.</li>
-                ![원자재12](https://github.com/wououoo/Project-Meal_Kit_SpringBoot-/assets/156730657/5444a62a-03dd-4049-8870-939564487d85)
              </ol>
           </ol>
        </li>
