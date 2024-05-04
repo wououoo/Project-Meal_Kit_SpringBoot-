@@ -45,6 +45,7 @@
 밀키트를 생산/제조하는 업체에서 자원관리를 위해 사용하는 프로그램을 제공한다.
 <details>
   <summary><b>1. 로그인 & 접근제한</b> (👈 Click)</summary>
+  <br>
   <div markdown="1">
     <ul>
       <li>직원 번호가 데이터에 있으면 로그인이 가능하다.</li>
@@ -66,6 +67,7 @@
 
 <details>
   <summary><b>2. 마이페이지</b> (👈 Click)</summary>
+   <br>
   <div markdown="1">
     <ul>
       <li>'직원이름'과 '직원아이디'는 수정할 수 없다.</li>
