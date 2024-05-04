@@ -85,6 +85,7 @@
 
 <details>
   <summary><b>3. 공지사항</b> (👈 Click)</summary>
+   <br>
   <div>
     <ul>
       <li>'공지사항'에서 제목을 검색할 수 있다.</li>
@@ -96,6 +97,7 @@
 
 <details>
   <summary><b>4. 사원관리</b> (👈 Click)</summary>
+   <br>
   <div markdown="1">
     
   </div>
@@ -103,6 +105,7 @@
 
 <details>
   <summary><b>5. 재고현황</b> (👈 Click)</summary>
+   <br>
   <div markdown="1">
     
   </div>
@@ -110,6 +113,7 @@
 
 <details>
   <summary><b>6. 제조관리 - BOM 관리</b> (👈 Click)</summary>
+   <br>
   <div markdown="1">
     <ul>
        <li>BOM 현황
@@ -133,6 +137,7 @@
 
 <details>
   <summary><b>7. 제조관리 - 제조지시 및 제조수행</b> (👈 Click)</summary>
+   <br>
   <div markdown="1">
     
   </div>
@@ -140,6 +145,7 @@
 
 <details>
   <summary><b>8. 판매관리</b> (👈 Click)</summary>
+   <br>
   <div markdown="1">
     
   </div>
