@@ -33,18 +33,13 @@
 |---|---|---|
 |[김영범(팀장)](https://github.com/blanchit)|<p align="center"><img src="https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/1c2ddcb9-00a5-4f01-adbf-70476726e1c1" width="100"></p>|판매관리 - 프로젝트 구성 및 개발 범위 기획, 판매 주문서 CRUD|
 |[조다혜(팀원)](https://github.com/ChoDaHye)|<p align="center"><img src="https://avatars.githubusercontent.com/u/151722511?v=4" width="100"></p>|인사관리 - 메인메뉴, 구성원 관리, 로그인 화면, 공지사항 CRUD|
-|[우경주(팀원)](https://github.com/wououoo)|
-|[정수하(팀원)](https://github.com/heyJSH)|<p align="center"><img src="https://avatars.githubusercontent.com/u/150403977?v=4" width="100"></p>|ㅁㅁㅁ|
+|[우경주(팀원)](https://github.com/wououoo)|<p align="center"><img src="https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/2bdb07d5-ae47-44f5-89dd-6335d7030ca3" width="100"></p>|구매관리 - 공급업체 및 원자재 데이터 베이스 작성, 구매 시스템 설계 및 기능 구현|
+|[정수하(팀원)](https://github.com/heyJSH)|<p align="center"><img src="https://avatars.githubusercontent.com/u/150403977?v=4" width="100"></p>|공유 드라이브/깃허브 관리, 테이블 설계 및 ERD 초안 작성, 제조관리 - BOM CRUD|
+|[진재원(팀원)](https://github.com/jinjw98?tab=overview&from=2024-04-01&to=2024-04-30)|<p align="center"><img src="https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/11e3b565-bdbc-413d-97a4-89b32a34a785" width="100"></p>|제조관리 - 제조 지시서 CRUD, 제조 수행 CRUD|
 
 
 <br><br>
 
-|[김영범(팀장)]()|[조다혜(팀원)](https://github.com/ChoDaHye)|[우경주(팀원)]()|[정수하(팀원)](https://github.com/heyJSH)|[진재원(팀원)](https://github.com/jinjw98?tab=overview&from=2024-04-01&to=2024-04-30)|
-|---|---|---|---|---|
-|<p align="center"></p>|<p align="center"><img src="https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/e311d453-aebb-4758-a744-49af4fa63319" width="100"></p>|<p align="center"><img src="https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/2bdb07d5-ae47-44f5-89dd-6335d7030ca3" width="100"></p>|<p align="center"><img src="https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/8a862690-502f-4eea-912c-74dd2e970756" width="100"></p>|<p align="center"><img src="https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/11e3b565-bdbc-413d-97a4-89b32a34a785" width="100"></p>|
-|||구매관리 - 공급업체 및 원자재 데이터 베이스 작성, 구매 시스템 설계 및 기능 구현|제조관리 - 공유 드라이브/깃허브 관리, 테이블 설계 및 ERD 초안 작성, BOM CRUD|제조관리 - 제조 지시서 CRUD, 제조 수행 CRUD|
-
-<br><br>
 
 ## 📕 주요기능
 밀키트를 생산/제조하는 업체에서 자원관리를 위해 사용하는 프로그램을 제공한다.
