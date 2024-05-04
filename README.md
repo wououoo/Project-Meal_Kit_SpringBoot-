@@ -1,13 +1,5 @@
 # 스프링부트를 이용한, 밀키트 제조업체를 위한 웹 솔루션 개발
 
-## 📌 목차
-1. [🖥️ 프로젝트 개요](#-프로젝트-개요)
-2. [📕 주요기능](#-주요기능)
-3. [🔧 아키텍처](#-아키텍처)
-4. [🏗️ ERD](#-ERD)
-5. [⚠️ 트러블 슈팅](#-트러블-슈팅)
-   <br><br>
-
 ## 🖥️ 프로젝트 개요
 ### ⏲️ 프로젝트 개발 기간
   - 2024.01.29 ~ 2024.02.14
@@ -28,6 +20,7 @@
   - **ORM**: Mybatis
   - **DevOps**: Maven, Git, GitHub
   - **Tools**: Discord, GoogleDrive, StarUML
+  - 
 ### 🧑‍🤝‍🧑 멤버 구성
 |팀원명|프로필|담당업무|
 |---|---|---|
@@ -41,14 +34,14 @@
 <br><br>
 
 
-## 📕 주요기능
+## 📕 담당 기능
 밀키트를 생산/제조하는 업체에서 자원관리를 위해 사용하는 프로그램을 제공한다.
 <details>
-  <summary><b>1. 로그인 & 접근제한</b> (👈 Click)</summary>
+  <summary><b>1. 원자재 관리</b> (👈 Click)</summary>
   <br>
   <div markdown="1">
     <ul>
-      <li>직원 번호가 데이터에 있으면 로그인이 가능하다.</li>
+      <li>.</li>
       <li>부서별 접근 가능한 페이지가 다르다.
         <ol>
           <li>
@@ -68,7 +61,7 @@
 
 
 <details>
-  <summary><b>6. 제조관리 - BOM 관리</b> (👈 Click)</summary>
+  <summary><b>2. 공급업체 관리</b> (👈 Click)</summary>
    <br>
   <div markdown="1">
     <ul>
@@ -77,13 +70,13 @@
              <li>
                 BOM 현황에서 [BOM 검색 및 조회], [BOM 수정], [BOM 삭제]를 할 수 있다.
              </li>
-             <img src="https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/3004b0db-c451-4554-989a-df53172963e1" alt="BOM 현황">
+             ![원자재1](https://github.com/wououoo/Project-Meal_Kit_SpringBoot-/assets/156730657/724a4045-d2a8-4376-aa9b-9e5982c54fb0)
              <li>
                 <b>BOM 현황 - BOM 검색 및 조회</b>
              </li>
              <ol>
                 <li>select box의 option을 선택 → 검색 버튼을 누르면 해당하는 목록을 조회할 수 있다.</li>
-                <img src="https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/bce88b20-6bc8-48d5-a64e-6b3112e43f63" alt="BOM 검색 및 조회">
+                ![원자재12](https://github.com/wououoo/Project-Meal_Kit_SpringBoot-/assets/156730657/5444a62a-03dd-4049-8870-939564487d85)
              </ol>
           </ol>
        </li>
@@ -91,21 +84,7 @@
   </div>
 </details>
 
-<details>
-  <summary><b>7. 제조관리 - 제조지시 및 제조수행</b> (👈 Click)</summary>
-   <br>
-  <div markdown="1">
-    
-  </div>
-</details>
 
-<details>
-  <summary><b>8. 판매관리</b> (👈 Click)</summary>
-   <br>
-  <div markdown="1">
-    
-  </div>
-</details>
 <br><br>
 
 ## 🔧 아키텍처
