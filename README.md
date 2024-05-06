@@ -39,9 +39,9 @@
 |---|---|---|
 |[김영범<br>(팀장)](https://github.com/blanchit)|<p align="center"><img src="https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/1c2ddcb9-00a5-4f01-adbf-70476726e1c1" width="100"></p>|판매관리 - 프로젝트 구성 및 개발 범위 기획<br>판매 주문서 CRUD|
 |[조다혜<br>(팀원)](https://github.com/ChoDaHye)|<p align="center"><img src="https://avatars.githubusercontent.com/u/151722511?v=4" width="100"></p>|메인메뉴, 공지사항 CRUD<br>인사관리 - 로그인 화면, 마이페이지(비밀번호 변경)|
-|[우경주<br>(팀원)](https://github.com/wououoo)|<p align="center"><img src="https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/2bdb07d5-ae47-44f5-89dd-6335d7030ca3" width="100"></p>|구매 시스템 설계<br>구매관리 - 공급업체 및 원자재 데이터 베이스 작성|
+|[우경주<br>(팀원)](https://github.com/wououoo)|<p align="center"><img src="https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/2bdb07d5-ae47-44f5-89dd-6335d7030ca3" width="100"></p>|구매 시스템 설계<br>구매관리 - 공급업체 및 원자재 데이터 베이스 작성<br>사원관리|
 |[정수하<br>(팀원)](https://github.com/heyJSH)|<p align="center"><img src="https://avatars.githubusercontent.com/u/150403977?v=4" width="100"></p>|공유 드라이브/깃허브 관리<br>테이블 설계 및 ERD 작성<br>제조관리 - BOM CRUD|
-|[진재원<br>(팀원)](https://github.com/jinjw98?tab=overview&from=2024-04-01&to=2024-04-30)|<p align="center"><img src="https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/11e3b565-bdbc-413d-97a4-89b32a34a785" width="100"></p>|제조 시스템 설계<br>제조관리 - 제조 지시서 CRUD, 제조 수행 CRUD<br>사원관리|
+|[진재원<br>(팀원)](https://github.com/jinjw98?tab=overview&from=2024-04-01&to=2024-04-30)|<p align="center"><img src="https://github.com/heyJSH/Project-Meal_Kit_SpringBoot/assets/150403977/11e3b565-bdbc-413d-97a4-89b32a34a785" width="100"></p>|제조 시스템 설계<br>제조관리 - 제조 지시서 CRUD, 제조 수행 CRUD|
 
 <br><br>
 
@@ -104,7 +104,7 @@
 </details>
 
 <details>
-  <summary><b>4. 사원관리 [진재원]</b> (👈 Click)</summary>
+  <summary><b>4. 사원관리 [우경주]</b> (👈 Click)</summary>
    <br>
   <div markdown="1">
      <h3>사원관리</h3>
